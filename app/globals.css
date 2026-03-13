@@ -530,6 +530,7 @@ iframe {
   overflow: hidden;
   z-index: calc(20 - var(--project-depth, 0));
   opacity: calc(1 - (var(--project-depth, 0) * 0.12));
+  filter: blur(calc(var(--project-depth, 0) * 1.4px)) saturate(calc(1 - (var(--project-depth, 0) * 0.08)));
   transform:
     translateX(calc(-50% + (var(--project-offset, 0) * 8.2rem)))
     translateY(calc(var(--project-depth, 0) * 0.9rem))
@@ -538,6 +539,7 @@ iframe {
   transition:
     transform 280ms ease,
     opacity 280ms ease,
+    filter 280ms ease,
     box-shadow 280ms ease,
     border-color 280ms ease;
 }
@@ -545,6 +547,7 @@ iframe {
 .projectStageCard[open] {
   border-color: var(--rule-strong);
   box-shadow: 0 22px 52px rgba(79, 64, 45, 0.12);
+  filter: none;
 }
 
 .projectStageSummary {
@@ -585,11 +588,23 @@ iframe {
   white-space: nowrap;
 }
 
+.techStackRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.techStackEmoji {
+  flex: 0 0 auto;
+  line-height: 1.9;
+  font-size: 1rem;
+}
+
 .projectTechRow {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 18px;
 }
 
 .projectTechRow span {
@@ -1030,7 +1045,6 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 18px;
 }
 
 .tagRow span {

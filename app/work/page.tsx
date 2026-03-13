@@ -23,11 +23,18 @@ export default function WorkPage() {
               </summary>
               <div className="workAccordionContent">
                 <p className="workAccordionIntro">{item.summary}</p>
-                <div className="tagRow">
-                  {item.tags?.map((tag) => (
-                    <span key={tag}>{tag}</span>
-                  ))}
-                </div>
+                {item.tags?.length ? (
+                  <div className="techStackRow">
+                    <span className="techStackEmoji" aria-hidden="true">
+                      💻
+                    </span>
+                    <div className="tagRow">
+                      {item.tags.map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
                 <div className="workAccordionBody">
                   {item.details.map((detail) => (
                     <p key={detail}>{detail}</p>

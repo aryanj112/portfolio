@@ -23,10 +23,15 @@ export default function ProjectsPage() {
               <div className="workAccordionContent">
                 <p className="workAccordionIntro">{item.summary}</p>
                 {item.tags?.length ? (
-                  <div className="tagRow">
-                    {item.tags.map((tag) => (
-                      <span key={tag}>{tag}</span>
-                    ))}
+                  <div className="techStackRow">
+                    <span className="techStackEmoji" aria-hidden="true">
+                      💻
+                    </span>
+                    <div className="tagRow">
+                      {item.tags.map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </div>
                   </div>
                 ) : null}
                 {item.links?.length ? (

@@ -73,11 +73,18 @@ export function HomeProjectCarousel({ projects }: { projects: DetailEntry[] }) {
                   </div>
                   <span>{project.period}</span>
                 </div>
-                <div className="projectTechRow">
-                  {(project.tags ?? []).map((tag) => (
-                    <span key={tag}>{tag}</span>
-                  ))}
-                </div>
+                {project.tags?.length ? (
+                  <div className="techStackRow">
+                    <span className="techStackEmoji" aria-hidden="true">
+                      💻
+                    </span>
+                    <div className="projectTechRow">
+                      {project.tags.map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
                 {project.links?.length ? (
                   <div className="projectLinkRow">
                     {project.links.map((link) => (

@@ -122,7 +122,7 @@ export const workExperiences: DetailEntry[] = [
     summary:
       "Designed hardware and developed code to measure and transmit HVAC appliance efficiency data.",
     details: [],
-    tags: ["💻 Python", "AWS IoT", "Raspberry Pi", "SolidWorks"],
+    tags: ["Python", "AWS IoT", "Raspberry Pi", "SolidWorks"],
   },
   {
     slug: "amazon-student-developer",
@@ -201,7 +201,7 @@ export const projects: DetailEntry[] = [
       "Built and launched the website for Craving Hour Halal, a local food truck serving 3,000+ monthly users, and developed a companion mobile app for managing site content.",
     details: [],
     tags: [
-      "💻 React",
+      "React",
       "AWS CloudFront",
       "Google Maps API",
       "React Native",
@@ -213,17 +213,6 @@ export const projects: DetailEntry[] = [
     links: [{ label: "Live site", href: "https://www.cravinghourhalal.com/" }],
   },
   {
-    slug: "amazon-kuiper-demo",
-    title: "Amazon Leo Dashboard",
-    subtitle: "Built with App Development Club",
-    period: "2025",
-    summary:
-      "A demo project built with App Development Club around an Amazon Kuiper concept.",
-    details: [],
-    tags: ["App Development", "Tech stack TBD"],
-    links: [{ label: "Demo", href: "https://www.youtube.com/watch?v=AQpo7HwY4lw" }],
-  },
-  {
     slug: "amazon-leo",
     title: "Amazon Leo",
     subtitle: "Built with App Development Club",
@@ -231,7 +220,7 @@ export const projects: DetailEntry[] = [
     summary:
       "Developed a web app to visualize optimal Amazon Kuiper transmitter locations for low earth orbit satellites with machine learning insights.",
     details: [],
-    tags: ["💻 React", "Tailwind", "Docker", "AWS", "FastAPI", "PostGIS"],
+    tags: ["React", "Tailwind", "Docker", "AWS", "FastAPI", "PostGIS"],
   },
   {
     slug: "one-cut-above",
@@ -241,7 +230,7 @@ export const projects: DetailEntry[] = [
     summary:
       "Led a team building a mobile booking app for a local barber, translating client needs into a system that streamlined 30,000+ yearly appointments, saved $40,000+ annually, and reduced after-hours manual coordination.",
     details: [],
-    tags: ["💻 React Native", "Supabase", "Square API"],
+    tags: ["React Native", "Supabase", "Square API"],
     links: [
       { label: "Demo", href: "https://www.youtube.com/watch?v=m8jBnT4MwH8" },
       { label: "GitHub", href: "https://github.com/aryanj112/cut-above-app" },
