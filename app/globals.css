@@ -136,8 +136,7 @@ iframe {
 .eyebrow,
 .lineMeta,
 .detailMeta p,
-.backLink,
-.resumeActions a {
+.backLink {
   font-family: "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
 }
 
@@ -151,8 +150,7 @@ iframe {
 
 .quickLinks a:hover,
 .lineItem:hover h2,
-.backLink:hover,
-.resumeActions a:hover {
+.backLink:hover {
   color: var(--accent);
 }
 
@@ -768,17 +766,11 @@ iframe {
 }
 
 .extracurricularSummary {
-  list-style: none;
   display: grid;
   grid-template-columns: 86px minmax(0, 1fr);
   gap: 18px;
   align-items: center;
   padding: 18px 0;
-  cursor: pointer;
-}
-
-.extracurricularSummary::-webkit-details-marker {
-  display: none;
 }
 
 .extracurricularBadge {
@@ -812,27 +804,61 @@ iframe {
 }
 
 .extracurricularCopy h3 {
-  margin: 0 0 6px;
+  margin: 0;
   font-size: 1.22rem;
   transition: color 180ms ease;
 }
 
 .extracurricularCopy p {
-  margin: 0;
+  margin: 8px 0 0;
   max-width: 46rem;
   font-size: 0.98rem;
   line-height: 1.7;
   color: var(--muted);
 }
 
-.extracurricularExpanded {
-  padding: 0 0 18px 104px;
+.extracurricularTitleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
 }
 
-.extracurricularExpanded p {
-  margin: 0 0 14px;
-  font-size: 1rem;
-  line-height: 1.72;
+.inlineActivityLink {
+  position: relative;
+  color: var(--moss);
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.inlineActivityLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 6px;
+  background: rgba(111, 151, 92, 0.26);
+  transform: scaleX(0.2);
+  transform-origin: left center;
+  transition: transform 180ms ease, background 180ms ease;
+  z-index: -1;
+}
+
+.inlineActivityLink:hover::after {
+  transform: scaleX(1);
+  background: rgba(111, 151, 92, 0.42);
+}
+
+.extracurricularStaticSummary {
+  align-items: start;
+}
+
+.extracurricularHeaderBlock p {
+  margin: 8px 0 0;
+  max-width: 46rem;
+  font-size: 0.98rem;
+  line-height: 1.7;
   color: var(--muted);
 }
 
@@ -867,17 +893,11 @@ iframe {
 }
 
 .extracurricularPageSummary {
-  list-style: none;
   display: grid;
   grid-template-columns: 86px minmax(0, 1fr) auto;
   gap: 18px;
   align-items: center;
   padding: 22px 0;
-  cursor: pointer;
-}
-
-.extracurricularPageSummary::-webkit-details-marker {
-  display: none;
 }
 
 .workAccordionHeader h3 {
@@ -964,9 +984,7 @@ iframe {
 }
 
 .listSection,
-.detailSection,
-.contactSection,
-.resumeSection {
+.detailSection {
   margin-top: 32px;
 }
 
@@ -1069,59 +1087,105 @@ iframe {
   color: var(--soft);
 }
 
-.contactIcons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  padding: 22px 0 14px;
+.contactHomeSection {
+  margin-top: 0;
 }
 
-.contactIconLink {
-  width: 82px;
-  height: 82px;
-  border-radius: 50%;
+.contactHomeGrid {
   display: grid;
-  place-items: center;
-  background: rgba(255, 251, 244, 0.92);
-  border: 1px solid var(--rule-strong);
-  box-shadow:
-    0 0 0 6px rgba(255, 248, 238, 0.92),
-    0 8px 24px rgba(79, 64, 45, 0.08);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 28px;
+  padding-top: 18px;
+  align-items: start;
 }
 
-.contactIconLink:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 0 0 6px rgba(255, 248, 238, 0.92),
-    0 14px 30px rgba(79, 64, 45, 0.12);
-}
-
-.contactIconImage {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-}
-
-.resumeActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  padding: 20px 0;
-}
-
-.resumeActions a {
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.contactHomeCopy p,
+.footerInner p {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--muted);
 }
 
-.resumeFrame {
-  width: 100%;
-  min-height: 920px;
+.contactHomeCopy a,
+.footerInner a,
+.resumeModalActions a {
+  color: var(--moss);
+}
+
+.resumePopupButton,
+.resumeCloseButton {
   border: 1px solid var(--rule);
-  background: rgba(255, 252, 246, 0.75);
+  background: rgba(255, 251, 244, 0.92);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  font-size: 0.98rem;
+  cursor: pointer;
+}
+
+.resumePopupButton:hover,
+.resumeCloseButton:hover {
+  border-color: var(--rule-strong);
+}
+
+.resumeModalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(37, 31, 24, 0.34);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  z-index: 40;
+}
+
+.resumeModalCard {
+  width: min(920px, 100%);
+  background: rgba(255, 251, 244, 0.98);
+  border: 1px solid var(--rule);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(45, 37, 27, 0.22);
+  overflow: hidden;
+}
+
+.resumeModalTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.resumeModalTop h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.resumeModalActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.resumeModalFrame {
+  width: 100%;
+  height: min(78vh, 920px);
+  border: 0;
+  background: rgba(255, 251, 244, 0.82);
+}
+
+.siteFooter {
+  margin-top: 30px;
+}
+
+.footerInner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  padding-top: 18px;
 }
 
 .courseworkPage {
@@ -1250,10 +1314,6 @@ iframe {
     font-size: 0.92rem;
   }
 
-  .extracurricularExpanded {
-    padding-left: 0;
-  }
-
   .workAccordionSummary {
     grid-template-columns: 1fr;
     gap: 8px;
@@ -1311,7 +1371,14 @@ iframe {
     white-space: normal;
   }
 
-  .resumeFrame {
-    min-height: 70vh;
+  .contactHomeGrid,
+  .resumeModalTop {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .resumeModalFrame {
+    height: 70vh;
   }
 }

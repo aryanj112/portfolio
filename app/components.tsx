@@ -3,15 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DetailEntry, profile } from "./site-data";
 
 const navItems = [
-  { href: "/", label: "Home", tone: "navPaint1" },
-  { href: "/work", label: "Work", tone: "navPaint2" },
-  { href: "/projects", label: "Projects", tone: "navPaint3" },
-  { href: "/extracurriculars", label: "Extracurriculars", tone: "navPaint4" },
-  { href: "/contact", label: "Contact", tone: "navPaint5" },
+  { href: "/#", hash: "", label: "Home", tone: "navPaint1" },
+  { href: "/#work", hash: "work", label: "Work", tone: "navPaint2" },
+  { href: "/#projects", hash: "projects", label: "Projects", tone: "navPaint3" },
+  { href: "/#extracurriculars", hash: "extracurriculars", label: "Extracurriculars", tone: "navPaint4" },
+  { href: "/#contact", hash: "contact", label: "Contact", tone: "navPaint5" },
 ];
 
 const wordmarkPaints = [
@@ -33,6 +33,17 @@ export function SiteShell({
 }) {
   const pathname = usePathname();
   const [wordmarkTone, setWordmarkTone] = useState(wordmarkPaints[0]);
+  const [activeHash, setActiveHash] = useState("");
+
+  useEffect(() => {
+    const syncHash = () => {
+      setActiveHash(window.location.hash.replace("#", ""));
+    };
+
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    return () => window.removeEventListener("hashchange", syncHash);
+  }, []);
 
   const randomizeWordmarkTone = () => {
     const nextTone = wordmarkPaints[Math.floor(Math.random() * wordmarkPaints.length)];
@@ -63,13 +74,9 @@ export function SiteShell({
                 href={item.href}
                 key={item.href}
                 className={`navPaintLink ${item.tone} ${
-                  item.href === "/"
-                    ? pathname === "/"
-                      ? "navActive"
-                      : ""
-                    : pathname.startsWith(item.href)
-                      ? "navActive"
-                      : ""
+                  pathname === "/" && ((item.hash === "" && activeHash === "") || item.hash === activeHash)
+                    ? "navActive"
+                    : ""
                 }`}
               >
                 {item.label}

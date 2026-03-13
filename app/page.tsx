@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "./components";
+import { HomeContactSection } from "./home-contact-section";
 import { HomeProjectCarousel } from "./home-project-carousel";
 import { extracurriculars, profile, projects, workTimeline } from "./site-data";
 
@@ -38,7 +39,7 @@ export default function Home() {
       </section>
 
       <div className="homeDivider rule" aria-hidden="true" />
-      <section className="timelineSection homeSection">
+      <section className="timelineSection homeSection" id="work">
         <h2 className="sectionSubhead">Work experience</h2>
         <div className="workSplitTimeline">
           <div className="workLane">
@@ -91,17 +92,17 @@ export default function Home() {
         </div>
       </section>
       <div className="homeDivider rule" aria-hidden="true" />
-      <div className="homeSection">
+      <div className="homeSection" id="projects">
         <HomeProjectCarousel projects={projects} />
       </div>
       <div className="homeDivider rule" aria-hidden="true" />
-      <div className="homeSection">
+      <div className="homeSection" id="extracurriculars">
         <section className="extracurricularSection">
           <h2 className="sectionSubhead">Extracurriculars</h2>
           <div className="extracurricularList">
             {extracurriculars.map((item) => (
-              <details className="extracurricularItem" key={item.slug}>
-                <summary className="extracurricularSummary">
+              <div className="extracurricularItem extracurricularStaticItem" key={item.slug}>
+                <div className="extracurricularSummary extracurricularStaticSummary">
                   <div className="extracurricularBadge" aria-hidden="true">
                     {item.imageSrc ? (
                       <Image
@@ -122,28 +123,25 @@ export default function Home() {
                     )}
                   </div>
                   <div className="extracurricularCopy">
-                    <h3>{item.title}</h3>
+                    <div className="extracurricularTitleRow">
+                      <h3>{item.title}</h3>
+                      {item.links?.[0] ? (
+                        <a href={item.links[0].href} target="_blank" rel="noreferrer" className="inlineActivityLink">
+                          {item.links[0].label}
+                        </a>
+                      ) : null}
+                    </div>
                     <p>{item.summary}</p>
                   </div>
-                </summary>
-                <div className="extracurricularExpanded">
-                  {item.links?.length ? (
-                    <div className="projectPageLinkRow">
-                      {item.links.map((link) => (
-                        <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
-                  ) : null}
-                  {item.details.map((detail) => (
-                    <p key={detail}>{detail}</p>
-                  ))}
                 </div>
-              </details>
+              </div>
             ))}
           </div>
         </section>
+      </div>
+      <div className="homeDivider rule" aria-hidden="true" />
+      <div className="homeSection">
+        <HomeContactSection />
       </div>
     </SiteShell>
   );

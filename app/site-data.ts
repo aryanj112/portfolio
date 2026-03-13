@@ -35,7 +35,7 @@ export const profile = {
   schoolShort: "UMD",
   schoolUrl: "https://www.cs.umd.edu/",
   careerInterests:
-    "Right now, I am especially interested in robotics, with drones being the area I am most excited to explore further. More broadly, I want to work at the intersection of robotics, computer vision, AI, and embedded systems, and I am also very interested in computer graphics. I have grown to really enjoy low-level systems work too, especially after CMSC 216, which made me appreciate how computers actually work under the hood. Long term, my ideal path is to combine AI, robotics, and my environmental minors to build technology that can help protect nature.",
+    "Right now, I am especially interested in robotics, with drones being the area I am most excited to explore further. More broadly, I want to work at the intersection of robotics, computer vision, AI, and embedded systems, and I am also very interested in computer graphics. I have also grown to really enjoy low-level systems work and understanding how computers operate under the hood. Long term, my ideal path is to combine AI, robotics, and my environmental minors to build technology that can help protect nature.",
 };
 
 export const collegeCoursework = {
@@ -261,13 +261,8 @@ export const extracurriculars: DetailEntry[] = [
     imageSrc: "/extracurriculars/projectlift.png",
     imageAlt: "Project LIFT logo",
     summary:
-      "Helped found the club and now work on client sourcing and outreach, building Project LIFT into a campus organization around ambitious student-led work.",
-    details: [
-      "Helped found Project LIFT and supported its growth as a student organization focused on building for real clients and creating more ambitious opportunities on campus.",
-      "My work has included client sourcing and outreach, helping connect the club with outside partners and shape the kind of projects the team can take on.",
-      "Website: https://www.projectliftumd.com/",
-    ],
-    tags: ["Leadership", "Initiative", "Outreach"],
+      "Leading 40+ students to deliver software solutions for 8+ local small businesses, generating $50,000+ in value.",
+    details: [],
     links: [{ label: "Website", href: "https://www.projectliftumd.com/" }],
   },
   {
@@ -279,12 +274,8 @@ export const extracurriculars: DetailEntry[] = [
     imageAlt: "Alpha Kappa Psi logo",
     summary:
       "Part of Alpha Kappa Psi, where I have developed professionally through a strong peer network, collaboration, and leadership opportunities.",
-    details: [
-      "This section can highlight any committees, events, recruiting work, or projects you helped drive.",
-      "It is also a good place to show that you care about communication and teamwork, not just technical execution.",
-      "If you want, we can make this page feel more reflective and personal than resume-like.",
-    ],
-    tags: ["Leadership", "Community"],
+    details: [],
+    links: [{ label: "Instagram", href: "https://www.instagram.com/akpsiot/" }],
   },
   {
     slug: "app-development-club",
@@ -295,12 +286,7 @@ export const extracurriculars: DetailEntry[] = [
     imageAlt: "App Development Club logo",
     summary:
       "Work with Fortune 500 companies to create tech solutions through App Development Club.",
-    details: [
-      "Work with Fortune 500 companies to create tech solutions through a student engineering community focused on shipping real products.",
-      "This is also where projects like Amazon Kuiper Demo and Amazon Leo connect back to campus work.",
-      "Website: https://appdevclub.com/",
-    ],
-    tags: ["Product", "Engineering", "Club"],
+    details: [],
     links: [{ label: "Website", href: "https://appdevclub.com/" }],
   },
 ];
