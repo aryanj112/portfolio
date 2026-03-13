@@ -90,12 +90,8 @@ export const workExperiences: DetailEntry[] = [
     period: "Ongoing",
     location: "University of Maryland",
     summary:
-      "Working on drone-focused research in an academic lab setting and exploring the kind of robotics and autonomy problems I want to keep pursuing long term.",
-    details: [
-      "This section is set up for your RAAS lab work and can hold the exact research direction, hardware stack, and autonomy or sensing problems you are tackling.",
-      "It is also a strong place to connect drones, robotics, and computer vision to the broader environmental and field robotics work you want to grow into.",
-      "Once you want, we can replace this with the real scope of your research, what you built, and the specific technical questions you worked on.",
-    ],
+      "Researching the effects of wind on drones in an academic lab setting and exploring the kind of robotics and autonomy problems I want to keep pursuing long term.",
+    details: [],
     tags: ["Robotics", "Drones", "Research"],
   },
   {
@@ -105,12 +101,8 @@ export const workExperiences: DetailEntry[] = [
     period: "Incoming Summer '26",
     location: "San Francisco, CA",
     summary:
-      "Joining Pinterest as a software engineering intern and excited to learn how large-scale consumer products are built with strong engineering craft.",
-    details: [
-      "This page is ready for your real internship description, team name, project scope, and impact once you want to swap in exact resume bullets.",
-      "A strong version here could describe the product area, the systems you touched, and the specific outcome you owned.",
-      "We can also add screenshots, architecture notes, or a short reflection once the internship is underway.",
-    ],
+      "Joining Pinterest as a software engineering intern on the Mobile Platforms organization and excited to learn how large-scale mobile systems are built.",
+    details: [],
     tags: ["Consumer products", "Frontend", "Product engineering"],
   },
   {
@@ -120,7 +112,7 @@ export const workExperiences: DetailEntry[] = [
     period: "Summer '25",
     location: "Gaithersburg, MD",
     summary:
-      "Designed hardware and developed code to measure and transmit HVAC appliance efficiency data.",
+      "Built an embedded system for monitoring dehumidifier efficiency, including hardware design and code to measure and transmit appliance data.",
     details: [],
     tags: ["Python", "AWS IoT", "Raspberry Pi", "SolidWorks"],
   },
@@ -131,12 +123,8 @@ export const workExperiences: DetailEntry[] = [
     period: "Winter '26",
     location: "Student developer program",
     summary:
-      "Built software in a student developer setting and gained experience working with product-oriented engineering expectations at scale.",
-    details: [
-      "This page can describe the exact product area, stack, and ownership you had in the program.",
-      "It can also help connect your broader software background with your growing focus on robotics, AI, and systems work.",
-      "If you want, we can later make this read more technical or more resume-like depending on the audience.",
-    ],
+      "Worked on Project Leo in Amazon's student developer program and gained experience building software in a product-focused environment.",
+    details: [],
     tags: ["Software engineering", "Product", "Student developer"],
   },
 ];

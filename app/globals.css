@@ -1093,13 +1093,10 @@ iframe {
 
 .contactHomeGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 28px;
+  gap: 18px;
   padding-top: 18px;
-  align-items: start;
 }
 
-.contactHomeCopy p,
 .footerInner p {
   margin: 0 0 10px;
   font-size: 1rem;
@@ -1107,10 +1104,46 @@ iframe {
   color: var(--muted);
 }
 
-.contactHomeCopy a,
 .footerInner a,
 .resumeModalActions a {
   color: var(--moss);
+}
+
+.contactIcons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.contactHomeActions {
+  display: flex;
+}
+
+.contactIconLink {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 251, 244, 0.92);
+  border: 1px solid var(--rule-strong);
+  box-shadow:
+    0 0 0 6px rgba(255, 248, 238, 0.92),
+    0 8px 24px rgba(79, 64, 45, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.contactIconLink:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 6px rgba(255, 248, 238, 0.92),
+    0 14px 30px rgba(79, 64, 45, 0.12);
+}
+
+.contactIconImage {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
 }
 
 .resumePopupButton,
@@ -1182,10 +1215,27 @@ iframe {
 }
 
 .footerInner {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 28px;
+  display: grid;
+  place-items: center;
   padding-top: 18px;
+}
+
+.footerRoll {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--text);
+  transition:
+    transform 180ms ease,
+    color 180ms ease,
+    text-shadow 180ms ease;
+}
+
+.footerRoll:hover {
+  transform: translateY(-2px) rotate(-1.2deg);
+  color: var(--moss);
+  text-shadow: 0 10px 24px rgba(84, 120, 90, 0.18);
 }
 
 .courseworkPage {
