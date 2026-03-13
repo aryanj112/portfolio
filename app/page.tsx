@@ -1,10 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SectionList, SiteShell } from "./components";
+import { SiteShell } from "./components";
 import { HomeProjectCarousel } from "./home-project-carousel";
 import { extracurriculars, profile, projects, workTimeline } from "./site-data";
 
 export default function Home() {
+  const industryWork = workTimeline.filter((item) => item.track === "Industry");
+  const academiaWork = workTimeline.filter((item) => item.track === "Academia");
+
   return (
     <SiteShell>
       <section className="heroBlock">
@@ -37,26 +40,54 @@ export default function Home() {
       <div className="homeDivider rule" aria-hidden="true" />
       <section className="timelineSection homeSection">
         <h2 className="sectionSubhead">Work experience</h2>
-        <div className="workTimeline">
-          {workTimeline.map((item, index) => (
-            <Link href={item.href} className="timelineCard" key={item.company}>
-              <div className="timelineLogo">
-                <Image
-                  src={item.logoSrc}
-                  alt={item.logoAlt}
-                  width={72}
-                  height={72}
-                  className="timelineLogoImage"
-                />
-              </div>
-              {index < workTimeline.length - 1 ? <div className="timelineConnector" aria-hidden="true" /> : null}
-              <div className="timelineCopy">
-                <h3>{item.company}</h3>
-                <p>{item.role}</p>
-                <span>{item.period}</span>
-              </div>
-            </Link>
-          ))}
+        <div className="workSplitTimeline">
+          <div className="workLane">
+            <div className="workLaneHeader">Industry</div>
+            <div className="workLaneList">
+              {industryWork.map((item) => (
+                <Link href={item.href} className="timelineCard timelineCardVertical" key={item.company}>
+                  <div className="timelineLogo">
+                    <Image
+                      src={item.logoSrc}
+                      alt={item.logoAlt}
+                      width={72}
+                      height={72}
+                      className="timelineLogoImage"
+                    />
+                  </div>
+                  <div className="timelineCopy">
+                    <h3>{item.company}</h3>
+                    <p>{item.role}</p>
+                    <span>{item.period}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="workLaneDivider" aria-hidden="true" />
+          <div className="workLane">
+            <div className="workLaneHeader">Academia</div>
+            <div className="workLaneList">
+              {academiaWork.map((item) => (
+                <Link href={item.href} className="timelineCard timelineCardVertical" key={item.company}>
+                  <div className="timelineLogo">
+                    <Image
+                      src={item.logoSrc}
+                      alt={item.logoAlt}
+                      width={72}
+                      height={72}
+                      className="timelineLogoImage"
+                    />
+                  </div>
+                  <div className="timelineCopy">
+                    <h3>{item.company}</h3>
+                    <p>{item.role}</p>
+                    <span>{item.period}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
       <div className="homeDivider rule" aria-hidden="true" />
@@ -96,6 +127,15 @@ export default function Home() {
                   </div>
                 </summary>
                 <div className="extracurricularExpanded">
+                  {item.links?.length ? (
+                    <div className="projectPageLinkRow">
+                      {item.links.map((link) => (
+                        <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  ) : null}
                   {item.details.map((detail) => (
                     <p key={detail}>{detail}</p>
                   ))}

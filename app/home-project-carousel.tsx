@@ -1,67 +1,133 @@
 "use client";
 
-import { useRef } from "react";
+import type { CSSProperties } from "react";
+import { useState } from "react";
 import type { DetailEntry } from "./site-data";
 
 export function HomeProjectCarousel({ projects }: { projects: DetailEntry[] }) {
-  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const scrollCarousel = (direction: "left" | "right") => {
-    const container = scrollerRef.current;
-
-    if (!container) {
-      return;
-    }
-
-    const amount = Math.min(container.clientWidth * 0.9, 380);
-    container.scrollBy({
-      left: direction === "left" ? -amount : amount,
-      behavior: "smooth",
-    });
+  const goToPrevious = () => {
+    setActiveIndex((current) => (current - 1 + projects.length) % projects.length);
   };
+
+  const goToNext = () => {
+    setActiveIndex((current) => (current + 1) % projects.length);
+  };
+
+  const goToIndex = (index: number) => {
+    setActiveIndex(index);
+  };
+
+  const activeProject = projects[activeIndex];
 
   return (
     <section className="projectCarouselSection">
       <div className="sectionHeaderRow">
         <h2 className="sectionSubhead">Projects</h2>
         <div className="carouselControls" aria-label="Project carousel controls">
-          <button type="button" className="carouselButton" onClick={() => scrollCarousel("left")}>
+          <button type="button" className="carouselButton" onClick={goToPrevious}>
             Left
           </button>
-          <button type="button" className="carouselButton" onClick={() => scrollCarousel("right")}>
+          <button type="button" className="carouselButton" onClick={goToNext}>
             Right
           </button>
         </div>
       </div>
-      <div className="projectCarousel" ref={scrollerRef}>
-        {projects.map((project, index) => (
-          <details
-            className="projectCard"
-            key={project.slug}
-            style={{ ["--project-rotation" as string]: index % 2 === 0 ? "-2.6deg" : "2.6deg" }}
-          >
-            <summary className="projectCardSummary">
-              <div className="projectCardTop">
-                <div>
-                  <h3>{project.title}</h3>
-                  <p>{project.subtitle}</p>
+
+      <div className="projectCarouselStage" aria-live="polite">
+        {projects.map((project, index) => {
+          const offset = index - activeIndex;
+          const wrappedOffset =
+            offset > projects.length / 2
+              ? offset - projects.length
+              : offset < -projects.length / 2
+                ? offset + projects.length
+                : offset;
+          const clampedOffset = Math.max(-3, Math.min(3, wrappedOffset));
+
+          return (
+            <details
+              className="projectStageCard"
+              key={project.slug}
+              open={index === activeIndex}
+              style={
+                {
+                  ["--project-offset" as string]: clampedOffset,
+                  ["--project-tilt" as string]: `${clampedOffset * 3.5}deg`,
+                  ["--project-depth" as string]: `${Math.abs(clampedOffset)}`,
+                } as CSSProperties
+              }
+            >
+              <summary
+                className="projectStageSummary"
+                onClick={(event) => {
+                  event.preventDefault();
+                  goToIndex(index);
+                }}
+              >
+                <div className="projectCardTop">
+                  <div>
+                    <h3>{project.title}</h3>
+                    {project.subtitle ? <p>{project.subtitle}</p> : null}
+                  </div>
+                  <span>{project.period}</span>
                 </div>
-                <span>{project.period}</span>
-              </div>
-              <div className="projectTechRow">
-                {(project.tags ?? []).map((tag) => (
-                  <span key={tag}>{tag}</span>
+                <div className="projectTechRow">
+                  {(project.tags ?? []).map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+                {project.links?.length ? (
+                  <div className="projectLinkRow">
+                    {project.links.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(event) => event.stopPropagation()}
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
+                <p className="projectCardDescription">{project.summary}</p>
+              </summary>
+              <div className="projectStageExpanded">
+                {project.details.map((detail) => (
+                  <p key={detail}>{detail}</p>
                 ))}
               </div>
-              <p className="projectCardDescription">{project.summary}</p>
-            </summary>
-            <div className="projectCardExpanded">
-              {project.details.map((detail) => (
-                <p key={detail}>{detail}</p>
-              ))}
-            </div>
-          </details>
-        ))}
+            </details>
+          );
+        })}
+      </div>
+
+      <div className="projectCarouselMeta">
+        <div className="projectCarouselTitle">{activeProject.title}</div>
+        <div className="projectCarouselSlider" aria-label="Project selector">
+          <div className="projectCarouselTrack" aria-hidden="true" />
+          {projects.map((project, index) => (
+            <button
+              key={project.slug}
+              type="button"
+              className={`projectCarouselDot ${index === activeIndex ? "isActive" : ""}`}
+              aria-label={`View ${project.title}`}
+              aria-pressed={index === activeIndex}
+              style={
+                {
+                  ["--dot-position" as string]: `${(index / Math.max(projects.length - 1, 1)) * 100}%`,
+                } as CSSProperties
+              }
+              onClick={() => goToIndex(index)}
+            />
+          ))}
+        </div>
+        <div className="projectCarouselCount">
+          {activeIndex + 1} of {projects.length}
+        </div>
       </div>
     </section>
   );

@@ -41,11 +41,22 @@ export default function ExtracurricularsPage() {
               </summary>
               <div className="workAccordionContent">
                 <p className="workAccordionIntro">{item.summary}</p>
-                <div className="tagRow">
-                  {item.tags?.map((tag) => (
-                    <span key={tag}>{tag}</span>
-                  ))}
-                </div>
+                {item.tags?.length ? (
+                  <div className="tagRow">
+                    {item.tags.map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </div>
+                ) : null}
+                {item.links?.length ? (
+                  <div className="projectPageLinkRow">
+                    {item.links.map((link) => (
+                      <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
                 <div className="workAccordionBody">
                   {item.details.map((detail) => (
                     <p key={detail}>{detail}</p>

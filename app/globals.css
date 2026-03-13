@@ -336,7 +336,7 @@ iframe {
 }
 
 .singleCopyBlock {
-  padding: 20px 0 26px;
+  padding: 20px 0 12px;
   max-width: 52rem;
 }
 
@@ -356,6 +356,36 @@ iframe {
   margin-top: 14px;
 }
 
+.workSplitTimeline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+  gap: 30px;
+  padding: 10px 0 2px;
+  align-items: start;
+}
+
+.workLane {
+  min-width: 0;
+}
+
+.workLaneHeader {
+  margin-bottom: 18px;
+  font-size: 0.88rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+.workLaneList {
+  display: grid;
+  gap: 22px;
+}
+
+.workLaneDivider {
+  align-self: stretch;
+  background: linear-gradient(180deg, rgba(116, 117, 101, 0.15), rgba(116, 117, 101, 0.45), rgba(116, 117, 101, 0.15));
+}
+
 .workTimeline {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -369,6 +399,14 @@ iframe {
   grid-template-rows: auto auto;
   gap: 18px;
   color: inherit;
+}
+
+.timelineCardVertical {
+  grid-template-columns: 96px minmax(0, 1fr);
+  grid-template-rows: none;
+  align-items: center;
+  gap: 18px;
+  padding: 2px 0;
 }
 
 .timelineCard:hover .timelineLogo {
@@ -472,46 +510,50 @@ iframe {
   color: var(--text);
 }
 
-.projectCarousel {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(280px, 360px);
-  gap: 22px;
-  overflow-x: auto;
-  padding: 12px 6px 14px;
-  scroll-snap-type: x proximity;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+.projectCarouselStage {
+  position: relative;
+  height: 26.5rem;
+  margin-top: 10px;
+  overflow: hidden;
 }
 
-.projectCarousel::-webkit-scrollbar {
-  display: none;
-}
-
-.projectCard {
-  scroll-snap-align: start;
+.projectStageCard {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(31rem, calc(100% - 3rem));
   border: 1px solid var(--rule);
-  border-radius: 26px;
+  border-radius: 28px;
   background:
-    linear-gradient(180deg, rgba(255, 251, 244, 0.96), rgba(247, 242, 232, 0.92));
-  box-shadow: 0 16px 38px rgba(79, 64, 45, 0.08);
-  transform: rotate(var(--project-rotation, 0deg));
-  transition: transform 180ms ease, box-shadow 180ms ease;
+    linear-gradient(180deg, rgba(255, 251, 244, 0.98), rgba(246, 240, 227, 0.95));
+  box-shadow: 0 16px 42px rgba(79, 64, 45, 0.08);
+  overflow: hidden;
+  z-index: calc(20 - var(--project-depth, 0));
+  opacity: calc(1 - (var(--project-depth, 0) * 0.12));
+  transform:
+    translateX(calc(-50% + (var(--project-offset, 0) * 8.2rem)))
+    translateY(calc(var(--project-depth, 0) * 0.9rem))
+    scale(calc(1 - (var(--project-depth, 0) * 0.08)))
+    rotate(var(--project-tilt, 0deg));
+  transition:
+    transform 280ms ease,
+    opacity 280ms ease,
+    box-shadow 280ms ease,
+    border-color 280ms ease;
 }
 
-.projectCard:hover,
-.projectCard[open] {
-  transform: rotate(0deg) translateY(-3px);
-  box-shadow: 0 22px 48px rgba(79, 64, 45, 0.12);
+.projectStageCard[open] {
+  border-color: var(--rule-strong);
+  box-shadow: 0 22px 52px rgba(79, 64, 45, 0.12);
 }
 
-.projectCardSummary {
+.projectStageSummary {
   list-style: none;
   cursor: pointer;
-  padding: 22px;
+  padding: 22px 22px 18px;
 }
 
-.projectCardSummary::-webkit-details-marker {
+.projectStageSummary::-webkit-details-marker {
   display: none;
 }
 
@@ -558,6 +600,43 @@ iframe {
   color: var(--muted);
 }
 
+.projectLinkRow,
+.projectPageLinkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  margin-top: 16px;
+}
+
+.projectLinkRow a,
+.projectPageLinkRow a {
+  position: relative;
+  color: var(--moss);
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.projectLinkRow a::after,
+.projectPageLinkRow a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 6px;
+  background: rgba(111, 151, 92, 0.26);
+  transform: scaleX(0.2);
+  transform-origin: left center;
+  transition: transform 180ms ease, background 180ms ease;
+  z-index: -1;
+}
+
+.projectLinkRow a:hover::after,
+.projectPageLinkRow a:hover::after {
+  transform: scaleX(1);
+  background: rgba(111, 151, 92, 0.42);
+}
+
 .projectCardDescription {
   margin: 18px 0 0;
   font-size: 1rem;
@@ -565,15 +644,91 @@ iframe {
   color: var(--muted);
 }
 
-.projectCardExpanded {
+.projectStageExpanded {
   padding: 0 22px 22px;
 }
 
-.projectCardExpanded p {
+.projectStageExpanded p {
   margin: 0 0 14px;
   font-size: 1rem;
   line-height: 1.72;
   color: var(--muted);
+}
+
+.projectCarouselMeta {
+  margin-top: 2px;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.projectCarouselTitle {
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.projectCarouselSlider {
+  position: relative;
+  width: min(32rem, calc(100% - 4rem));
+  height: 30px;
+  padding: 0 8px;
+}
+
+.projectCarouselTrack {
+  position: absolute;
+  top: 12px;
+  left: 8px;
+  right: 8px;
+  height: 7px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(79, 114, 144, 0.86), rgba(137, 171, 194, 0.96), rgba(79, 114, 144, 0.86));
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    0 2px 12px rgba(70, 104, 137, 0.1);
+}
+
+.projectCarouselDot {
+  position: absolute;
+  top: 4px;
+  left: var(--dot-position);
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border-radius: 999px;
+  border: 1px solid rgba(86, 113, 131, 0.45);
+  background: linear-gradient(180deg, rgba(247, 250, 247, 0.98), rgba(221, 232, 225, 0.95));
+  box-shadow: 0 3px 8px rgba(60, 77, 92, 0.12);
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease,
+    width 180ms ease,
+    margin-left 180ms ease,
+    border-color 180ms ease;
+}
+
+.projectCarouselDot:hover,
+.projectCarouselDot.isActive {
+  background: linear-gradient(180deg, rgba(244, 249, 243, 1), rgba(141, 182, 154, 0.98));
+  border-color: rgba(96, 137, 110, 0.48);
+  box-shadow: 0 5px 14px rgba(88, 122, 103, 0.18);
+}
+
+.projectCarouselDot.isActive {
+  width: 28px;
+  margin-left: -14px;
+  transform: translateY(-1px);
+}
+
+.projectCarouselCount {
+  font-family: "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--soft);
 }
 
 .extracurricularList {
@@ -1031,8 +1186,19 @@ iframe {
     gap: 28px;
   }
 
-  .projectCarousel {
-    grid-auto-columns: minmax(260px, 86vw);
+  .workSplitTimeline {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .workLaneDivider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(116, 117, 101, 0.15), rgba(116, 117, 101, 0.45), rgba(116, 117, 101, 0.15));
+  }
+
+  .projectCarouselStage {
+    height: 31rem;
   }
 
   .sectionHeaderRow {
@@ -1042,6 +1208,19 @@ iframe {
 
   .projectCardTop {
     grid-template-columns: 1fr;
+  }
+
+  .projectStageCard {
+    width: min(26rem, calc(100% - 1rem));
+    transform:
+      translateX(calc(-50% + (var(--project-offset, 0) * 4.4rem)))
+      translateY(calc(var(--project-depth, 0) * 0.75rem))
+      scale(calc(1 - (var(--project-depth, 0) * 0.08)))
+      rotate(var(--project-tilt, 0deg));
+  }
+
+  .projectCarouselSlider {
+    width: min(24rem, calc(100% - 1rem));
   }
 
   .extracurricularSummary,
@@ -1073,6 +1252,11 @@ iframe {
   }
 
   .timelineCard {
+    gap: 14px;
+  }
+
+  .timelineCardVertical {
+    grid-template-columns: 72px minmax(0, 1fr);
     gap: 14px;
   }
 
