@@ -3,12 +3,10 @@ import Link from "next/link";
 import { SiteShell } from "./components";
 import { HomeContactSection } from "./home-contact-section";
 import { HomeProjectCarousel } from "./home-project-carousel";
-import { extracurriculars, profile, projects, workTimeline } from "./site-data";
+import { HomeWorkSection } from "./home-work-section";
+import { extracurriculars, profile, projects } from "./site-data";
 
 export default function Home() {
-  const industryWork = workTimeline.filter((item) => item.track === "Industry");
-  const academiaWork = workTimeline.filter((item) => item.track === "Academia");
-
   return (
     <SiteShell>
       <section className="heroBlock">
@@ -39,58 +37,7 @@ export default function Home() {
       </section>
 
       <div className="homeDivider rule" aria-hidden="true" />
-      <section className="timelineSection homeSection" id="work">
-        <h2 className="sectionSubhead">Work experience</h2>
-        <div className="workSplitTimeline">
-          <div className="workLane">
-            <div className="workLaneHeader">Industry</div>
-            <div className="workLaneList">
-              {industryWork.map((item) => (
-                <Link href={item.href} className="timelineCard timelineCardVertical" key={item.company}>
-                  <div className="timelineLogo">
-                    <Image
-                      src={item.logoSrc}
-                      alt={item.logoAlt}
-                      width={72}
-                      height={72}
-                      className="timelineLogoImage"
-                    />
-                  </div>
-                  <div className="timelineCopy">
-                    <h3>{item.company}</h3>
-                    <p>{item.role}</p>
-                    <span>{item.period}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="workLaneDivider" aria-hidden="true" />
-          <div className="workLane">
-            <div className="workLaneHeader">Academia</div>
-            <div className="workLaneList">
-              {academiaWork.map((item) => (
-                <Link href={item.href} className="timelineCard timelineCardVertical" key={item.company}>
-                  <div className="timelineLogo">
-                    <Image
-                      src={item.logoSrc}
-                      alt={item.logoAlt}
-                      width={72}
-                      height={72}
-                      className="timelineLogoImage"
-                    />
-                  </div>
-                  <div className="timelineCopy">
-                    <h3>{item.company}</h3>
-                    <p>{item.role}</p>
-                    <span>{item.period}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <HomeWorkSection />
       <div className="homeDivider rule" aria-hidden="true" />
       <div className="homeSection" id="projects">
         <HomeProjectCarousel projects={projects} />

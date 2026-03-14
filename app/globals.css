@@ -43,7 +43,7 @@ iframe {
 }
 
 .page {
-  width: min(920px, calc(100% - 28px));
+  width: min(860px, calc(100% - 56px));
   margin: 0 auto;
   padding: 28px 0 72px;
   position: relative;
@@ -131,6 +131,11 @@ iframe {
   flex-wrap: wrap;
   gap: 18px;
   align-items: center;
+}
+
+.navDivider {
+  color: var(--soft);
+  opacity: 0.7;
 }
 
 .eyebrow,
@@ -223,6 +228,82 @@ iframe {
   line-height: 0.94;
   letter-spacing: -0.05em;
   max-width: 11ch;
+}
+
+.storyIntro {
+  max-width: 44rem;
+}
+
+.storyIntro p {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.storySection {
+  margin-top: 34px;
+}
+
+.storyCardGrid,
+.blogCardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.blogSectionStack {
+  display: grid;
+  gap: 8px;
+}
+
+.storyCard,
+.blogCard {
+  min-height: 220px;
+  padding: 22px;
+  border: 1px solid var(--rule);
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(255, 251, 244, 0.98), rgba(246, 240, 227, 0.95));
+  box-shadow: 0 14px 32px rgba(79, 64, 45, 0.08);
+  transform: rotate(var(--story-tilt, 0deg));
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.storyCard:hover,
+.blogCard:hover {
+  transform: rotate(0deg) translateY(-3px);
+  box-shadow: 0 20px 40px rgba(79, 64, 45, 0.12);
+}
+
+.storyCard h3,
+.blogCard h3 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+}
+
+.storyCard p,
+.blogCard p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.72;
+  color: var(--muted);
+}
+
+.musicCard {
+  background:
+    linear-gradient(180deg, rgba(255, 248, 239, 0.98), rgba(247, 237, 221, 0.95));
+}
+
+.guitarCard {
+  background:
+    linear-gradient(180deg, rgba(248, 251, 243, 0.98), rgba(232, 240, 221, 0.95));
+}
+
+.blogCard {
+  background:
+    linear-gradient(180deg, rgba(246, 249, 252, 0.98), rgba(229, 236, 242, 0.95));
 }
 
 .pageIntro p,
@@ -359,7 +440,7 @@ iframe {
   grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
   gap: 30px;
   padding: 10px 0 2px;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .workLane {
@@ -397,6 +478,16 @@ iframe {
   grid-template-rows: auto auto;
   gap: 18px;
   color: inherit;
+}
+
+.timelineCardButton {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
 }
 
 .timelineCardVertical {
@@ -463,14 +554,104 @@ iframe {
   color: var(--muted);
 }
 
+.timelineSummary {
+  margin-top: 7px;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--soft);
+}
+
 .timelineCopy span {
   display: inline-block;
-  margin-top: 8px;
+  margin-top: 10px;
   font-family: "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
   font-size: 0.76rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--soft);
+}
+
+.workModalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(37, 31, 24, 0.34);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  z-index: 40;
+}
+
+.workModalCard {
+  width: min(920px, 100%);
+  max-height: min(88vh, 980px);
+  overflow: auto;
+  background: rgba(255, 251, 244, 0.98);
+  border: 1px solid var(--rule);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(45, 37, 27, 0.22);
+}
+
+.workModalTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 20px 22px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.workModalTop h3 {
+  margin: 0 0 6px;
+  font-size: 1.5rem;
+}
+
+.workModalTop p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.workModalBody {
+  padding: 22px;
+}
+
+.workModalMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-bottom: 18px;
+  font-family: "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+.workModalSection {
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  margin-top: 18px;
+}
+
+.workModalSection h4 {
+  margin: 0 0 10px;
+  font-size: 0.86rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.workModalSection p {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--muted);
+}
+
+.workAttachmentList p:last-child,
+.workModalSection p:last-child {
+  margin-bottom: 0;
 }
 
 .projectCarouselSection,
@@ -520,12 +701,15 @@ iframe {
   top: 0;
   left: 50%;
   width: min(31rem, calc(100% - 3rem));
+  height: 29rem;
   border: 1px solid var(--rule);
   border-radius: 28px;
   background:
     linear-gradient(180deg, rgba(255, 251, 244, 0.98), rgba(246, 240, 227, 0.95));
   box-shadow: 0 16px 42px rgba(79, 64, 45, 0.08);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   z-index: calc(20 - var(--project-depth, 0));
   opacity: calc(1 - (var(--project-depth, 0) * 0.12));
   filter: blur(calc(var(--project-depth, 0) * 1.4px)) saturate(calc(1 - (var(--project-depth, 0) * 0.08)));
@@ -552,6 +736,9 @@ iframe {
   list-style: none;
   cursor: pointer;
   padding: 22px 22px 18px;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
 }
 
 .projectStageSummary::-webkit-details-marker {
@@ -562,7 +749,7 @@ iframe {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 16px;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .projectCardTop h3 {
@@ -659,6 +846,7 @@ iframe {
 
 .projectStageExpanded {
   padding: 0 22px 22px;
+  overflow: auto;
 }
 
 .projectStageExpanded p {
@@ -851,7 +1039,7 @@ iframe {
 }
 
 .extracurricularStaticSummary {
-  align-items: start;
+  align-items: flex-start;
 }
 
 .extracurricularHeaderBlock p {
@@ -883,7 +1071,7 @@ iframe {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 22px;
-  align-items: start;
+  align-items: flex-start;
   padding: 22px 0;
   cursor: pointer;
 }
@@ -1000,7 +1188,7 @@ iframe {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 22px;
-  align-items: start;
+  align-items: flex-start;
   padding: 22px 0;
   border-bottom: 1px solid var(--rule);
 }
@@ -1351,11 +1539,16 @@ iframe {
     width: min(24rem, calc(100% - 1rem));
   }
 
+  .storyCardGrid,
+  .blogCardGrid {
+    grid-template-columns: 1fr;
+  }
+
   .extracurricularSummary,
   .extracurricularPageSummary {
     grid-template-columns: 72px minmax(0, 1fr);
     gap: 14px;
-    align-items: start;
+    align-items: flex-start;
   }
 
   .extracurricularBadge {

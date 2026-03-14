@@ -8,17 +8,19 @@ export type DetailEntry = {
   details: string[];
   tags?: string[];
   links?: { label: string; href: string }[];
+  attachments?: string[];
   imageSrc?: string;
   imageAlt?: string;
 };
 
 export type WorkTimelineEntry = {
+  slug: string;
   company: string;
   role: string;
   period: string;
-  href: string;
   logoSrc: string;
   logoAlt: string;
+  summary: string;
   track: "Industry" | "Academia";
 };
 
@@ -35,7 +37,7 @@ export const profile = {
   schoolShort: "UMD",
   schoolUrl: "https://www.cs.umd.edu/",
   careerInterests:
-    "Right now, I am especially interested in robotics, with drones being the area I am most excited to explore further. More broadly, I want to work at the intersection of robotics, computer vision, AI, and embedded systems, and I am also very interested in computer graphics. I have also grown to really enjoy low-level systems work and understanding how computers operate under the hood. Long term, my ideal path is to combine AI, robotics, and my environmental minors to build technology that can help protect nature.",
+    "Right now, I am especially interested in robotics, drones, computer vision, AI, embedded systems, and computer graphics. Long term, I want to combine AI, robotics, and my environmental minors to build technology that can help protect the environment.",
 };
 
 export const collegeCoursework = {
@@ -84,26 +86,68 @@ export const highSchoolCoursework = {
 
 export const workExperiences: DetailEntry[] = [
   {
+    slug: "kilobot-research",
+    title: "UMD",
+    subtitle: "Kilobot Researcher",
+    period: "Summer '22",
+    location: "University of Maryland",
+    summary:
+      "Conducted swarm robotics research and developed pathfinding software for kilobots inspired by Dijkstra's algorithm.",
+    details: [
+      "Worked on swarm robotics research at UMD and developed pathfinding software for kilobots.",
+      "The modal is ready for you to add a fuller project scope, methods, or outcomes later.",
+    ],
+    tags: ["Robotics", "Research", "Kilobots", "Algorithms"],
+    links: [],
+    attachments: ["Add lab notes, paper links, or media here."],
+  },
+  {
     slug: "raas-lab-drone-research",
     title: "RAAS Lab",
     subtitle: "Drone Researcher",
-    period: "Ongoing",
+    period: "Feb '26 - Now",
     location: "University of Maryland",
     summary:
       "Researching the effects of wind on drones in an academic lab setting and exploring the kind of robotics and autonomy problems I want to keep pursuing long term.",
-    details: [],
-    tags: ["Robotics", "Drones", "Research"],
+    details: [
+      "Studying how wind affects drone behavior in a robotics research setting.",
+      "The modal is ready for you to add methods, experimental setup, or results later.",
+    ],
+    tags: ["Robotics", "Drones", "Research", "Flight dynamics"],
+    links: [],
+    attachments: ["Add experiment writeups, slides, or media here."],
   },
   {
     slug: "pinterest-software-engineering-intern",
     title: "Pinterest",
     subtitle: "Software Engineering Intern",
-    period: "Incoming Summer '26",
+    period: "Summer '26",
     location: "San Francisco, CA",
     summary:
       "Joining Pinterest as a software engineering intern on the Mobile Platforms organization and excited to learn how large-scale mobile systems are built.",
-    details: [],
-    tags: ["Consumer products", "Frontend", "Product engineering"],
+    details: [
+      "Incoming internship on the Mobile Platforms organization at Pinterest.",
+      "The modal is ready for you to add team focus, stack, and impact once the internship starts.",
+    ],
+    tags: ["Mobile", "Platforms", "Consumer products", "Product engineering"],
+    links: [],
+    attachments: ["Add internship project notes or screenshots here later."],
+  },
+  {
+    slug: "nist-research-intern",
+    title: "NIST",
+    subtitle: "Research Intern",
+    period: "Summer '23 - Mar '24",
+    location: "Gaithersburg, MD",
+    summary:
+      "Developed Python scripts and data visualizations to study how climate and weather influence dehumidifier behavior, contributing to a paper.",
+    details: [
+      "Built Python scripts and visualizations to analyze dehumidifier and weather data and study how climate influences dehumidifier behavior.",
+      "Contributed to research work that fed into a paper.",
+    ],
+    tags: ["Python", "Research", "Data visualization", "Climate analysis"],
+    links: [],
+    attachments: ["Add paper citation or PDF here."],
   },
   {
     slug: "nist-embedded-swe",
@@ -113,57 +157,91 @@ export const workExperiences: DetailEntry[] = [
     location: "Gaithersburg, MD",
     summary:
       "Built an embedded system for monitoring dehumidifier efficiency, including hardware design and code to measure and transmit appliance data.",
-    details: [],
+    details: [
+      "Designed hardware and developed code to measure and transmit dehumidifier efficiency data.",
+      "Worked across embedded software and physical system design in a lab environment.",
+    ],
     tags: ["Python", "AWS IoT", "Raspberry Pi", "SolidWorks"],
+    links: [],
+    attachments: ["Add hardware photos, diagrams, or notes here."],
   },
   {
     slug: "amazon-student-developer",
     title: "Amazon",
     subtitle: "Software Engineering Student Developer",
-    period: "Winter '26",
+    period: "Spring '25",
     location: "Student developer program",
     summary:
       "Worked on Project Leo in Amazon's student developer program and gained experience building software in a product-focused environment.",
-    details: [],
-    tags: ["Software engineering", "Product", "Student developer"],
+    details: [
+      "Worked on Project Leo during Amazon's student developer program.",
+      "The modal is ready for you to add exact ownership, architecture, and impact later.",
+    ],
+    tags: ["React", "AWS", "FastAPI", "Docker", "PostGIS"],
+    links: [],
+    attachments: ["Add demo links or architecture notes here."],
   },
 ];
 
 export const workTimeline: WorkTimelineEntry[] = [
   {
+    slug: "pinterest-software-engineering-intern",
     company: "Pinterest",
-    role: "SWE",
-    period: "Incoming Summer '26",
-    href: "/work#pinterest-software-engineering-intern",
+    role: "SWE Intern",
+    period: "Summer '26",
     logoSrc: "/logos/pinterest.png",
     logoAlt: "Pinterest logo",
+    summary: "Joining the Mobile Platforms org",
     track: "Industry",
   },
   {
-    company: "Amazon",
-    role: "SWE Student Developer",
-    period: "Winter '26",
-    href: "/work#amazon-student-developer",
-    logoSrc: "/logos/amazon.png",
-    logoAlt: "Amazon logo",
-    track: "Industry",
-  },
-  {
+    slug: "nist-embedded-swe",
     company: "NIST",
-    role: "Embedded SWE",
+    role: "Embedded SWE Intern",
     period: "Summer '25",
-    href: "/work#nist-embedded-swe",
     logoSrc: "/logos/nist.png",
     logoAlt: "NIST logo",
+    summary: "Built an embedded system for monitoring dehumidifier efficiency",
     track: "Industry",
   },
   {
+    slug: "amazon-student-developer",
+    company: "Amazon",
+    role: "SWE Student Developer",
+    period: "Spring '25",
+    logoSrc: "/logos/amazon.png",
+    logoAlt: "Amazon logo",
+    summary: "Developed a web app to visualize ideal transmitter locations for LEO satellites",
+    track: "Industry",
+  },
+  {
+    slug: "raas-lab-drone-research",
     company: "RAAS Lab",
     role: "Drone Researcher",
-    period: "Ongoing",
-    href: "/work#raas-lab-drone-research",
+    period: "Feb '26 - Now",
     logoSrc: "/logos/raas-lab.png",
     logoAlt: "RAAS Lab logo",
+    summary: "Studying the effects of wind on drones",
+    track: "Academia",
+  },
+  {
+    slug: "nist-research-intern",
+    company: "NIST",
+    role: "Research Intern",
+    period: "Summer '23 - Mar '24",
+    logoSrc: "/logos/nist.png",
+    logoAlt: "NIST logo",
+    summary: "Built Python data visualizations studying dehumidifier behavior",
+    track: "Academia",
+  },
+  {
+    slug: "kilobot-research",
+    company: "UMD",
+    role: "Kilobot Researcher",
+    period: "Summer '22",
+    logoSrc: "/logos/raas-lab.png",
+    logoAlt: "UMD research logo",
+    summary: "Conducted swarm robotics research and built kilobot pathfinding software inspired by Dijkstra's algorithm",
     track: "Academia",
   },
 ];

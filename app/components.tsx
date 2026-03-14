@@ -6,12 +6,17 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DetailEntry, profile } from "./site-data";
 
-const navItems = [
+const homeNavItems = [
   { href: "/#", hash: "", label: "Home", tone: "navPaint1" },
   { href: "/#work", hash: "work", label: "Work", tone: "navPaint2" },
   { href: "/#projects", hash: "projects", label: "Projects", tone: "navPaint3" },
   { href: "/#extracurriculars", hash: "extracurriculars", label: "Extracurriculars", tone: "navPaint4" },
   { href: "/#contact", hash: "contact", label: "Contact", tone: "navPaint5" },
+];
+
+const secondaryNavItems = [
+  { href: "/more-me", label: "More Me 🎸", tone: "navPaint2" },
+  { href: "/blog", label: "Blog ⚙️", tone: "navPaint3" },
 ];
 
 const wordmarkPaints = [
@@ -69,7 +74,7 @@ export function SiteShell({
             />
           </Link>
           <nav className="topNav" aria-label="Primary">
-            {navItems.map((item) => (
+            {homeNavItems.map((item) => (
               <Link
                 href={item.href}
                 key={item.href}
@@ -78,6 +83,18 @@ export function SiteShell({
                     ? "navActive"
                     : ""
                 }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <span className="navDivider" aria-hidden="true">
+              |
+            </span>
+            {secondaryNavItems.map((item) => (
+              <Link
+                href={item.href}
+                key={item.href}
+                className={`navPaintLink ${item.tone} ${pathname === item.href ? "navActive" : ""}`}
               >
                 {item.label}
               </Link>
