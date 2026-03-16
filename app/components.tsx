@@ -19,8 +19,8 @@ const secondaryNavItems = [
   { href: "/blog", label: "Blog ⚙️", tone: "navPaint3" },
 ];
 
-const primaryMobileNavItems = homeNavItems.slice(0, 4);
-const utilityNavItems = [homeNavItems[4], ...secondaryNavItems];
+const primaryMobileNavItems = homeNavItems;
+const utilityNavItems = secondaryNavItems;
 
 const wordmarkPaints = [
   "wordmarkPaint1",
