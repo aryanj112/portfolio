@@ -19,6 +19,9 @@ const secondaryNavItems = [
   { href: "/blog", label: "Blog ⚙️", tone: "navPaint3" },
 ];
 
+const primaryMobileNavItems = homeNavItems.slice(0, 4);
+const utilityNavItems = [homeNavItems[4], ...secondaryNavItems];
+
 const wordmarkPaints = [
   "wordmarkPaint1",
   "wordmarkPaint2",
@@ -74,31 +77,43 @@ export function SiteShell({
             />
           </Link>
           <nav className="topNav" aria-label="Primary">
-            {homeNavItems.map((item) => (
-              <Link
-                href={item.href}
-                key={item.href}
-                className={`navPaintLink ${item.tone} ${
-                  pathname === "/" && ((item.hash === "" && activeHash === "") || item.hash === activeHash)
-                    ? "navActive"
-                    : ""
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            <div className="topNavGroup topNavGroupPrimary">
+              {primaryMobileNavItems.map((item) => (
+                <Link
+                  href={item.href}
+                  key={item.href}
+                  className={`navPaintLink ${item.tone} ${
+                    pathname === "/" && ((item.hash === "" && activeHash === "") || item.hash === activeHash)
+                      ? "navActive"
+                      : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
             <span className="navDivider" aria-hidden="true">
               |
             </span>
-            {secondaryNavItems.map((item) => (
-              <Link
-                href={item.href}
-                key={item.href}
-                className={`navPaintLink ${item.tone} ${pathname === item.href ? "navActive" : ""}`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            <div className="topNavGroup topNavGroupSecondary">
+              {utilityNavItems.map((item) => (
+                <Link
+                  href={item.href}
+                  key={item.href}
+                  className={`navPaintLink ${item.tone} ${
+                    "hash" in item
+                      ? pathname === "/" && ((item.hash === "" && activeHash === "") || item.hash === activeHash)
+                        ? "navActive"
+                        : ""
+                      : pathname === item.href
+                        ? "navActive"
+                        : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </nav>
         </div>
         {(title || intro) && (
