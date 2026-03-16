@@ -2,13 +2,15 @@ export type DetailEntry = {
   slug: string;
   title: string;
   subtitle: string;
+  subtitleHref?: string;
   period: string;
   location?: string;
+  locationHref?: string;
   summary: string;
   details: string[];
   tags?: string[];
   links?: { label: string; href: string }[];
-  attachments?: string[];
+  attachments?: { label: string; href: string }[];
   imageSrc?: string;
   imageAlt?: string;
 };
@@ -28,8 +30,8 @@ export const profile = {
   name: "Aryan Jain",
   headshot: "/headshot.JPG",
   email: "2006aryanj@gmail.com",
-  linkedin: "https://www.linkedin.com",
-  github: "https://github.com",
+  linkedin: "https://www.linkedin.com/in/aryanjain06/",
+  github: "https://github.com/aryanj112",
   resume: "/Aryan_Jain_Resume_2_26_26_Pinterest.pdf",
   major: "Computer Science",
   minors: "Robotics, Climate Change Fluency, and Remote Sensing for Environmental Change",
@@ -71,83 +73,69 @@ export const highSchoolCoursework = {
     "Masti Bollywood Dance",
   ],
   courses: [
-    "Computer Science Principles",
+    "AP Computer Science Principles",
     "AP Capstone Seminar",
-    "Computer Science A",
-    "U.S. Government and Politics",
-    "Psychology",
-    "English Language and Composition",
-    "World History",
-    "Calculus BC",
-    "Physics 1 and 2 (Algebra-Based)",
-    "Environmental Science",
+    "AP Computer Science A",
+    "AP U.S. Government and Politics",
+    "AP Psychology",
+    "AP English Language and Composition",
+    "AP World History",
+    "AP Calculus BC",
+    "AP Physics 1 and 2",
+    "AP Environmental Science",
   ],
 };
 
 export const workExperiences: DetailEntry[] = [
   {
     slug: "kilobot-research",
-    title: "UMD",
+    title: "Otte Lab",
     subtitle: "Kilobot Researcher",
     period: "Summer '22",
-    location: "University of Maryland",
     summary:
       "Conducted swarm robotics research and developed pathfinding software for kilobots inspired by Dijkstra's algorithm.",
-    details: [
-      "Worked on swarm robotics research at UMD and developed pathfinding software for kilobots.",
-      "The modal is ready for you to add a fuller project scope, methods, or outcomes later.",
-    ],
-    tags: ["Robotics", "Research", "Kilobots", "Algorithms"],
+    details: [],
+    tags: ["C++"],
     links: [],
-    attachments: ["Add lab notes, paper links, or media here."],
   },
   {
     slug: "raas-lab-drone-research",
     title: "RAAS Lab",
     subtitle: "Drone Researcher",
-    period: "Feb '26 - Now",
+    period: "Feb '26 - Present",
     location: "University of Maryland",
     summary:
       "Researching the effects of wind on drones in an academic lab setting and exploring the kind of robotics and autonomy problems I want to keep pursuing long term.",
-    details: [
-      "Studying how wind affects drone behavior in a robotics research setting.",
-      "The modal is ready for you to add methods, experimental setup, or results later.",
-    ],
-    tags: ["Robotics", "Drones", "Research", "Flight dynamics"],
-    links: [],
-    attachments: ["Add experiment writeups, slides, or media here."],
+    details: [],
+    tags: ["Python", "Linux", "Ubuntu", "Gazebo"],
+    links: [{ label: "coming soon 👀", href: "#" }],
   },
   {
     slug: "pinterest-software-engineering-intern",
     title: "Pinterest",
     subtitle: "Software Engineering Intern",
     period: "Summer '26",
-    location: "San Francisco, CA",
+    location: "Remote",
     summary:
-      "Joining Pinterest as a software engineering intern on the Mobile Platforms organization and excited to learn how large-scale mobile systems are built.",
-    details: [
-      "Incoming internship on the Mobile Platforms organization at Pinterest.",
-      "The modal is ready for you to add team focus, stack, and impact once the internship starts.",
-    ],
-    tags: ["Mobile", "Platforms", "Consumer products", "Product engineering"],
-    links: [],
-    attachments: ["Add internship project notes or screenshots here later."],
+      "Joining Pinterest as a SWE intern on the Mobile Platforms org.",
+    details: [],
+    tags: ["???"],
   },
   {
     slug: "nist-research-intern",
     title: "NIST",
-    subtitle: "Research Intern",
+    subtitle: "Data Science Intern",
     period: "Summer '23 - Mar '24",
     location: "Gaithersburg, MD",
     summary:
-      "Developed Python scripts and data visualizations to study how climate and weather influence dehumidifier behavior, contributing to a paper.",
-    details: [
-      "Built Python scripts and visualizations to analyze dehumidifier and weather data and study how climate influences dehumidifier behavior.",
-      "Contributed to research work that fed into a paper.",
-    ],
+      "Developed python scripts to generate data visualizations analyzing dehumidifier and weather data to study how climate influences dehumidifier behavior. worked on a paper too :)",
+    details: [],
     tags: ["Python", "Research", "Data visualization", "Climate analysis"],
-    links: [],
-    attachments: ["Add paper citation or PDF here."],
+    links: [{ label: "GitHub", href: "https://github.com/aryanj112/DehumGraph" }],
+    attachments: [
+      { label: "Draft Research Paper", href: "/attachments/draft-research-paper.pdf" },
+      { label: "Research Poster", href: "/attachments/aryan-jain-srp-poster.pdf" },
+    ],
   },
   {
     slug: "nist-embedded-swe",
@@ -156,30 +144,23 @@ export const workExperiences: DetailEntry[] = [
     period: "Summer '25",
     location: "Gaithersburg, MD",
     summary:
-      "Built an embedded system for monitoring dehumidifier efficiency, including hardware design and code to measure and transmit appliance data.",
-    details: [
-      "Designed hardware and developed code to measure and transmit dehumidifier efficiency data.",
-      "Worked across embedded software and physical system design in a lab environment.",
-    ],
+      "Designed hardware and developed code to measure and transmit portable dehumidifier efficiency data.",
+    details: [],
     tags: ["Python", "AWS IoT", "Raspberry Pi", "SolidWorks"],
-    links: [],
-    attachments: ["Add hardware photos, diagrams, or notes here."],
+    links: [{ label: "GitHub", href: "https://github.com/aryanj112/nist_dehum" }],
   },
   {
     slug: "amazon-student-developer",
     title: "Amazon",
     subtitle: "Software Engineering Student Developer",
-    period: "Spring '25",
-    location: "Student developer program",
+    period: "Feb - May '25",
+    location: "built with App Development Club",
+    locationHref: "/#extracurriculars",
     summary:
-      "Worked on Project Leo in Amazon's student developer program and gained experience building software in a product-focused environment.",
-    details: [
-      "Worked on Project Leo during Amazon's student developer program.",
-      "The modal is ready for you to add exact ownership, architecture, and impact later.",
-    ],
-    tags: ["React", "AWS", "FastAPI", "Docker", "PostGIS"],
-    links: [],
-    attachments: ["Add demo links or architecture notes here."],
+      "Deployed a full stack web app to visualize optimal transmitter sites for Amazon's 3,000+ LEO satellites using ML insights.",
+    details: [],
+    tags: ["React", "FastAPI", "PostGIS", "AWS ECS/ECR", "Docker", "GitHub Actions", "Mapbox API", "AWS SES"],
+    links: [{ label: "Demo", href: "https://m.youtube.com/watch?v=AQpo7HwY4lw" }],
   },
 ];
 
@@ -218,7 +199,7 @@ export const workTimeline: WorkTimelineEntry[] = [
     slug: "raas-lab-drone-research",
     company: "RAAS Lab",
     role: "Drone Researcher",
-    period: "Feb '26 - Now",
+    period: "Feb '26 - Present",
     logoSrc: "/logos/raas-lab.png",
     logoAlt: "RAAS Lab logo",
     summary: "Studying the effects of wind on drones",
@@ -227,7 +208,7 @@ export const workTimeline: WorkTimelineEntry[] = [
   {
     slug: "nist-research-intern",
     company: "NIST",
-    role: "Research Intern",
+    role: "Data Science Intern",
     period: "Summer '23 - Mar '24",
     logoSrc: "/logos/nist.png",
     logoAlt: "NIST logo",
@@ -236,7 +217,7 @@ export const workTimeline: WorkTimelineEntry[] = [
   },
   {
     slug: "kilobot-research",
-    company: "UMD",
+    company: "Otte Lab",
     role: "Kilobot Researcher",
     period: "Summer '22",
     logoSrc: "/logos/raas-lab.png",
@@ -262,7 +243,8 @@ export const projects: DetailEntry[] = [
     slug: "craving-hour-halal",
     title: "Craving Hour Halal",
     subtitle: "Built through Project LIFT",
-    period: "2025",
+    subtitleHref: "/#extracurriculars",
+    period: "Summer '25",
     summary:
       "Built and launched the website for Craving Hour Halal, a local food truck serving 3,000+ monthly users, and developed a companion mobile app for managing site content.",
     details: [],
@@ -279,20 +261,11 @@ export const projects: DetailEntry[] = [
     links: [{ label: "Live site", href: "https://www.cravinghourhalal.com/" }],
   },
   {
-    slug: "amazon-leo",
-    title: "Amazon Leo",
-    subtitle: "Built with App Development Club",
-    period: "Ongoing",
-    summary:
-      "Developed a web app to visualize optimal Amazon Kuiper transmitter locations for low earth orbit satellites with machine learning insights.",
-    details: [],
-    tags: ["React", "Tailwind", "Docker", "AWS", "FastAPI", "PostGIS"],
-  },
-  {
     slug: "one-cut-above",
     title: "One Cut Above",
     subtitle: "Built through Project LIFT",
-    period: "2025",
+    subtitleHref: "/#extracurriculars",
+    period: "Sept '25 - Present",
     summary:
       "Led a team building a mobile booking app for a local barber, translating client needs into a system that streamlined 30,000+ yearly appointments, saved $40,000+ annually, and reduced after-hours manual coordination.",
     details: [],

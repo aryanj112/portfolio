@@ -6,6 +6,7 @@ import { workExperiences, workTimeline } from "./site-data";
 
 export function HomeWorkSection() {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const isInternalHref = (href: string) => href.startsWith("/") || href.startsWith("#");
 
   const workBySlug = useMemo(
     () => Object.fromEntries(workExperiences.map((entry) => [entry.slug, entry])),
@@ -57,8 +58,14 @@ export function HomeWorkSection() {
       </section>
 
       {activeEntry ? (
-        <div className="workModalBackdrop" role="dialog" aria-modal="true" aria-label={`${activeEntry.title} details`}>
-          <div className="workModalCard">
+        <div
+          className="workModalBackdrop"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${activeEntry.title} details`}
+          onClick={() => setActiveSlug(null)}
+        >
+          <div className="workModalCard" onClick={(event) => event.stopPropagation()}>
             <div className="workModalTop">
               <div>
                 <h3>{activeEntry.title}</h3>
@@ -72,7 +79,21 @@ export function HomeWorkSection() {
             <div className="workModalBody">
               <div className="workModalMeta">
                 <span>{activeEntry.period}</span>
-                {activeEntry.location ? <span>{activeEntry.location}</span> : null}
+                {activeEntry.location ? (
+                  activeEntry.locationHref ? (
+                      <a
+                        href={activeEntry.locationHref}
+                        className="paintLink workMetaLink"
+                        onClick={() => setActiveSlug(null)}
+                        target={isInternalHref(activeEntry.locationHref) ? undefined : "_blank"}
+                        rel={isInternalHref(activeEntry.locationHref) ? undefined : "noreferrer"}
+                      >
+                        {activeEntry.location}
+                      </a>
+                  ) : (
+                    <span>{activeEntry.location}</span>
+                  )
+                ) : null}
               </div>
 
               <section className="workModalSection">
@@ -101,29 +122,43 @@ export function HomeWorkSection() {
                 )}
               </section>
 
-              <section className="workModalSection">
-                <h4>Links</h4>
-                {activeEntry.links?.length ? (
+              {activeEntry.links?.length ? (
+                <section className="workModalSection">
+                  <h4>Links</h4>
                   <div className="projectPageLinkRow">
                     {activeEntry.links.map((link) => (
-                      <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className="paintLink standardUnderlineLink"
+                        target={isInternalHref(link.href) ? undefined : "_blank"}
+                        rel={isInternalHref(link.href) ? undefined : "noreferrer"}
+                      >
                         {link.label}
                       </a>
                     ))}
                   </div>
-                ) : (
-                  <p>Add links here later.</p>
-                )}
-              </section>
+                </section>
+              ) : null}
 
-              <section className="workModalSection">
-                <h4>Attachments</h4>
-                <div className="workAttachmentList">
-                  {(activeEntry.attachments ?? ["Add attachments here later."]).map((item) => (
-                    <p key={item}>{item}</p>
-                  ))}
-                </div>
-              </section>
+              {activeEntry.attachments?.length ? (
+                <section className="workModalSection">
+                  <h4>Attachments</h4>
+                  <div className="workAttachmentList">
+                    {activeEntry.attachments.map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        className="paintLink"
+                        target={isInternalHref(item.href) ? undefined : "_blank"}
+                        rel={isInternalHref(item.href) ? undefined : "noreferrer"}
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
             </div>
           </div>
         </div>

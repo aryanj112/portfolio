@@ -6,6 +6,7 @@ import { profile } from "./site-data";
 
 export function HomeContactSection() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [isRollSpinning, setIsRollSpinning] = useState(false);
 
   return (
     <>
@@ -37,7 +38,7 @@ export function HomeContactSection() {
             <div className="resumeModalTop">
               <h3>Resume</h3>
               <div className="resumeModalActions">
-                <a href={profile.resume} target="_blank" rel="noreferrer">
+                <a href={profile.resume}>
                   Open in new tab
                 </a>
                 <button type="button" className="resumeCloseButton" onClick={() => setIsResumeOpen(false)}>
@@ -53,7 +54,17 @@ export function HomeContactSection() {
       <footer className="siteFooter">
         <div className="rule" aria-hidden="true" />
         <div className="footerInner">
-          <p className="footerRoll">ROLL 🐢</p>
+          <button
+            type="button"
+            className={`footerRoll ${isRollSpinning ? "isSpinning" : ""}`}
+            onClick={() => {
+              setIsRollSpinning(false);
+              window.requestAnimationFrame(() => setIsRollSpinning(true));
+              window.setTimeout(() => setIsRollSpinning(false), 1200);
+            }}
+          >
+            ROLL 🐢
+          </button>
         </div>
       </footer>
     </>

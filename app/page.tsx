@@ -36,7 +36,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="homeDivider rule" aria-hidden="true" />
+      <div className="homeDivider heroDivider rule" aria-hidden="true" />
       <HomeWorkSection />
       <div className="homeDivider rule" aria-hidden="true" />
       <div className="homeSection" id="projects">
