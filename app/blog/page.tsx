@@ -12,7 +12,7 @@ export default function BlogPage() {
         <div className="rule" aria-hidden="true" />
         <div className="blogCardGrid">
           <Link href="/blog/harris-corner-detection" className="blogCard blogCardLink">
-            <h3>Understanding Edge and Corner Features: Harris Corner Detection</h3>
+            <h3>Understanding edges: Canny Edge Detector</h3>
             <p>Mar 16, 2026</p>
           </Link>
         </div>

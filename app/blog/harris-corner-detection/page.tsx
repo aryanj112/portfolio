@@ -1,10 +1,160 @@
+import Link from "next/link";
+import type { Metadata } from "next";
+import { BlogImageLightbox } from "../../blog-image-lightbox";
+import { BlogLearnMore } from "../../blog-learn-more";
+import { CodeBlock } from "../../code-block";
 import { SiteShell } from "../../components";
+
+export const metadata: Metadata = {
+  title: "Understanding edges: Canny Edge Detector",
+};
+
+const pythonCode = `# Recall the first step is performing a Gaussian Blur
+smooth_window_size = 7
+blur = cv2.GaussianBlur(img, (smooth_window_size, smooth_window_size), 0)
+
+# We can now create a Kernal and pass it through the image
+kernel = np.array([-1, 0, 1], dtype=np.float32) / 2.0
+Ix = ndimage.convolve1d(blur, kernel, axis=1, mode='constant')
+Iy = ndimage.convolve1d(blur, kernel, axis=0, mode='constant')`;
 
 export default function HarrisCornerDetectionPage() {
   return (
     <SiteShell>
       <section className="blogPostShell">
-        <h1>Understanding Edge and Corner Features: Harris Corner Detection</h1>
+        <h1>
+          Understanding edges:
+          <br />
+          Canny Edge Detector
+        </h1>
+        <p>
+          Hey! In this blog, I want to dive into what features (such as edges and corners) are and how we can detect edges in
+          an image. In a later blog we will look at not only how to detect corners but also how to track them however understanding
+          edges is the first step.
+        </p>
+        <p>
+          For context as to why this is important, detecting corners is the first step in feature tracking which has
+          millions of applications that range from video stabilization to self-driving cars all the way to AR/VR
+          headsets like the Oculus Quest.
+        </p>
+        <p>I will be diving into the pivital algorithm John F. Canny designed all the way back in 1986: the Canny Edge Detector</p>
+        <div className="rule" aria-hidden="true" />
+        <p>
+          Ok to start off, what even is an <strong>edge</strong>? An edge for our purposes (and generally described as) is a{" "}
+          <strong>sharp contrast in pixel intensity</strong>. As shown in the two images below, the left is a regular patch of
+          pixels whereas the right is an edge.
+        </p>
+        <BlogImageLightbox
+          src="/blog/patch-vs-edge.png"
+          alt="Comparison of a regular pixel patch and an edge"
+          width={900}
+          height={640}
+        />
+        <p>
+          Given that edges are <strong> rapid changes in intensity </strong> if we look at the intesity values along a
+          left to right strip of pixels we should find large changes where the edges are located.
+        </p>
+        <i>
+          Now before we do that I want to preface that we will be gray scaling the image during this lesson. The reason for that
+          (and I want you to internalize this) is because we <strong> only care about intensity!</strong>
+        </i>
+        <BlogImageLightbox
+          src="/blog/intensity.png"
+          alt="Intensity values along a line of pixels"
+          width={900}
+          height={640}
+        />
+        <p>
+          If you look at the yellow star in both images it is clear that there is an edge there not just by looking at the
+          image but also by looking at the change in pixel intensity on the right graph.
+        </p>
+        <p>
+          I've been saying "change in intensity" a lot, hoping it would trigger the <strong> calculus side </strong> of your brain to start thinking about derivatives
+          (if you don't know what derivatives are, watch{" "}
+          <a href="https://www.youtube.com/watch?v=9vKqVkMQHKk" className="paintLink" target="_blank" rel="noreferrer">
+            this video
+          </a>{" "}
+          or check out this{" "}
+          <Link href="/blog" className="paintLink">
+            blog post abt calc incoming 👀
+          </Link>
+          ). If we create a discrete derivative of the intensities,
+          all we have to do is <strong> look for large derivatives. </strong>
+        </p>
+        <BlogImageLightbox
+          src="/blog/gradient.png"
+          alt="Derivative profile showing where intensity changes sharply"
+          width={900}
+          height={640}
+        />
+
+        <i>
+          <br />
+          one caveat is that these are discrete derivatives, meaning that you take the pixel to the right and subtract it from the
+          pixel on the left to get a deriative. For example, if three pixels have intensities [50, 60, 80], the derivative at the
+          middle pixel would be (80 − 50) / 2 = (30) / 2 = 15. We are dividing by two because that is the true definite deriative formula.
+        </i>
+
+        <p>
+          Now, most images aren't perfect and some tend to be on the grainier/noisier side. Here is what happens to our gradient
+          after we add a little bit of gaussian noise.
+        </p>
+        <BlogImageLightbox
+          src="/blog/noisy-gradient.png"
+          alt="Noisy gradient example"
+          width={900}
+          height={640}
+        />
+
+        <p>
+          The solution here is simply to use a Gaussian blur to elimiate the noise. Here is the gradient with a gaussian blur applied.
+          It is important to note that we can apply the blur to the image and then take the derivative as well because it is a linear
+          operation.
+        </p>
+        <BlogImageLightbox
+          src="/blog/gaussian_gradient_smoothing.png"
+          alt="Gaussian smoothing on a noisy gradient"
+          width={900}
+          height={640}
+        />
+        <p>
+          Due to linearity we can simply take the derivative of the gaussian <strong>(DoG)</strong> w.r.t the x and y directions
+          (this splitting of the filter is called a seperable filter which is computationally cheaper and mathematically equivelant).
+          The <strong>(DoG)</strong> is able to <strong>reduce noise</strong> and do <strong>edge detection</strong> at the same time.
+        </p>
+        <BlogImageLightbox
+          src="/blog/dog.png"
+          alt="Dog example image"
+          width={900}
+          height={640}
+        />
+
+        <p>
+          The <strong>(DoG)</strong> is the first of 3 step in the Canny Edge detection algorithm. After applying this filter we get back ∂I/∂x and ∂I/∂y (I is intensity so we are
+          taking the partial derivative of intensity w.r.t the x direction as well the y).
+        </p>
+
+        <CodeBlock code={pythonCode} lang="python" />
+        <BlogLearnMore />
+        <BlogImageLightbox
+          src="/blog/ix_iy.png"
+          alt="Ix and Iy output images"
+          width={900}
+          height={640}
+        />
+
+        <p>
+          Ok so now we have a filter that can help us find where edges are and is invariant to noise. But before we move on, I want to
+          pose the 2 things we want in a good edge detector. These will help lead us to the next two steps of the algorithm
+        </p>
+        <ol>
+          <li>Good detection of edges</li>
+          <li>
+            Good localization of edges. This means that if we have detected edges, we want to make sure that they are close to the
+            actual ground truth edge.
+          </li>
+        </ol>
+        <p>More coming soon...</p>
       </section>
     </SiteShell>
   );
