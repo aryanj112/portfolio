@@ -376,6 +376,16 @@ iframe {
   display: block;
 }
 
+.blogInlineVideo {
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  background: rgba(255, 251, 244, 0.82);
+  display: block;
+}
+
 .blogCodeBlock {
   margin: 22px 0 0;
   padding: 18px 20px;

@@ -222,6 +222,9 @@ grad_mag = np.square(Ix) + np.square(Iy)`} lang="python" />
           the direction and magnitude of the edge. So the next question is how do we seperate this into the direction. Watch the video below
           and you can see just how to do that (you will need a basic understanding of linear algebra and trigonometry).
         </p>
+        <video className="blogInlineVideo" controls>
+          <source src="/blog/canny-edge-detection/GradientVectorExplanation.mp4" type="video/mp4" />
+        </video>
 
 
 
