@@ -27,6 +27,21 @@ export default function HarrisCornerDetectionPage() {
           <br />
           Canny Edge Detector
         </h1>
+        <div className="blogPostMetaRow">
+          <p className="blogByline">By: Aryan Jain</p>
+          <a
+            href="https://github.com/aryanj112/computer-vision/blob/main/notebooks/canny-edge-detection.ipynb"
+            className="blogCodeLink"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="View code for this post"
+          >
+            <span className="blogCodeLinkIcon" aria-hidden="true">
+              {"</>"}
+            </span>
+            <span>Code</span>
+          </a>
+        </div>
         <p>
           Hey! In this blog, I want to dive into what features (such as edges and corners) are and how we can detect edges in
           an image. In a later blog we will look at not only how to detect corners but also how to track them however understanding
@@ -45,7 +60,7 @@ export default function HarrisCornerDetectionPage() {
           pixels whereas the right is an edge.
         </p>
         <BlogImageLightbox
-          src="/blog/patch-vs-edge.png"
+          src="/blog/canny-edge-detection/patch-vs-edge.png"
           alt="Comparison of a regular pixel patch and an edge"
           width={900}
           height={640}
@@ -59,7 +74,7 @@ export default function HarrisCornerDetectionPage() {
           (and I want you to internalize this) is because we <strong> only care about intensity!</strong>
         </i>
         <BlogImageLightbox
-          src="/blog/intensity.png"
+          src="/blog/canny-edge-detection/intensity.png"
           alt="Intensity values along a line of pixels"
           width={900}
           height={640}
@@ -82,7 +97,7 @@ export default function HarrisCornerDetectionPage() {
           all we have to do is <strong> look for large derivatives. </strong>
         </p>
         <BlogImageLightbox
-          src="/blog/gradient.png"
+          src="/blog/canny-edge-detection/gradient.png"
           alt="Derivative profile showing where intensity changes sharply"
           width={900}
           height={640}
@@ -90,7 +105,7 @@ export default function HarrisCornerDetectionPage() {
 
         <i>
           <br />
-          one caveat is that these are discrete derivatives, meaning that you take the pixel to the right and subtract it from the
+          Note that these are discrete derivatives, meaning that you take the pixel to the right and subtract it from the
           pixel on the left to get a deriative. For example, if three pixels have intensities [50, 60, 80], the derivative at the
           middle pixel would be (80 − 50) / 2 = (30) / 2 = 15. We are dividing by two because that is the true definite deriative formula.
         </i>
@@ -100,7 +115,7 @@ export default function HarrisCornerDetectionPage() {
           after we add a little bit of gaussian noise.
         </p>
         <BlogImageLightbox
-          src="/blog/noisy-gradient.png"
+          src="/blog/canny-edge-detection/noisy-gradient.png"
           alt="Noisy gradient example"
           width={900}
           height={640}
@@ -112,7 +127,7 @@ export default function HarrisCornerDetectionPage() {
           operation.
         </p>
         <BlogImageLightbox
-          src="/blog/gaussian_gradient_smoothing.png"
+          src="/blog/canny-edge-detection/gaussian_gradient_smoothing.png"
           alt="Gaussian smoothing on a noisy gradient"
           width={900}
           height={640}
@@ -123,7 +138,7 @@ export default function HarrisCornerDetectionPage() {
           The <strong>(DoG)</strong> is able to <strong>reduce noise</strong> and do <strong>edge detection</strong> at the same time.
         </p>
         <BlogImageLightbox
-          src="/blog/dog.png"
+          src="/blog/canny-edge-detection/dog.png"
           alt="Dog example image"
           width={900}
           height={640}
@@ -137,12 +152,31 @@ export default function HarrisCornerDetectionPage() {
         <CodeBlock code={pythonCode} lang="python" />
         <BlogLearnMore />
         <BlogImageLightbox
-          src="/blog/ix_iy.png"
+          src="/blog/canny-edge-detection/ix_iy.png"
           alt="Ix and Iy output images"
           width={900}
           height={640}
         />
+        <i>
+          <strong>NOTE:</strong> even though it says Ix is a horizontal gradient it measures vertical edges (Iy is a vertical gradient that
+          measures horizontal edges). Spend some time thinking about this, why that makes sense, and trying to find that in the image.
+        </i>
 
+        <p>
+          The next step is combining these images by squaring both of them and adding them. This is called the gradient magnitude,
+          which allows us to amplify strong signals and get rid of weaker ones while also combining the x and y gradients (the reason
+          this amplifies strong signals and weakens smaller ones is because a small value squared gets smaller while a large value
+          squared gets larger). Also, you may hear "sobel filter" a lot when looking into the canny edge detector and that is another
+          filter used to compute gradients, we did not use that here.
+        </p>
+        <BlogImageLightbox
+          src="/blog/canny-edge-detection/gradient_magnitude.png"
+          alt="Gradient magnitude output"
+          width={900}
+          height={640}
+        />
+        <CodeBlock code={`# We now can combine them and this will give us all the edges in the image
+grad_mag = np.square(Ix) + np.square(Iy)`} lang="python" />
         <p>
           Ok so now we have a filter that can help us find where edges are and is invariant to noise. But before we move on, I want to
           pose the 2 things we want in a good edge detector. These will help lead us to the next two steps of the algorithm
@@ -154,7 +188,45 @@ export default function HarrisCornerDetectionPage() {
             actual ground truth edge.
           </li>
         </ol>
-        <p>More coming soon...</p>
+        <p>If you look closely at the gradient magnitude then you can see that the edges are pretty thick and in reality we only need
+          one pixel to classify an edge. The technique we will use to get rid of this is <strong>Non-Max Suppresson (NHS) </strong>
+        </p>
+
+        <p>
+          <strong>Non-Max Suppresson (NHS): </strong> the goal is to keep only the local maxima along a gradient direction. What does that mean?
+          That means that if we have say a 45 degree edge and a bunch of pixels decribing that edge, we want to only keep the edges that
+          have the <strong>largest</strong> signal.
+        </p>
+
+        <p>
+          Lets dive into what I mean by gradient direction. So recall that a x gradient is measuring a vertical edge. If we go along the
+          x gradient in a particular pixel patch and we keep only the maxima in a local region that means that we <strong>thinning out or shaving </strong>
+          a vertical edge. I really want that to stick with you and why we are <strong>thinning out and shaving </strong> as opposed to erasing an edge.
+        </p>
+        <BlogImageLightbox
+          src="/blog/canny-edge-detection/ix_thinning.png"
+          alt="Ix thinning example"
+          width={900}
+          height={640}
+        />
+        <p>
+          In this image, we can see how the x gradient is showing a vertical edge and by going along the axis of the gradient we can
+          thin out the edge by only taking the maxima at this location. Once we have done our <strong>NMS</strong> we will come back to
+          this spot and revist how the edge looks
+        </p>
+
+        <p>
+          Now the big question is how do we figure out what orientation a certain pixel edge is representing? To understand how to
+          solve this problem lets take a look at the two gradients of a sample pixel. If we combine the two gradients into a vector
+          we now have a vector that represents the change in x and y of a pixel's intensity. If we take this vector and plot it we can see
+          the direction and magnitude of the edge. So the next question is how do we seperate this into the direction. Watch the video below
+          and you can see just how to do that (you will need a basic understanding of linear algebra and trigonometry).
+        </p>
+
+
+
+
+
       </section>
     </SiteShell>
   );

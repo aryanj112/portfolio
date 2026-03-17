@@ -331,6 +331,39 @@ iframe {
   max-width: 100%;
 }
 
+.blogPostMetaRow {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+.blogByline {
+  margin: 0;
+  font-size: 1.04rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.blogCodeLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 11px;
+  border: 1px solid rgba(57, 64, 78, 0.42);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(31, 35, 44, 0.98), rgba(24, 28, 36, 0.98));
+  color: #e8edf3;
+  font-family: "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.8rem;
+}
+
+.blogCodeLinkIcon {
+  font-size: 0.82rem;
+  color: #b8d7ff;
+}
+
 .blogInlineImage {
   width: 100%;
   height: auto;
