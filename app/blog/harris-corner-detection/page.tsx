@@ -146,7 +146,8 @@ export default function HarrisCornerDetectionPage() {
 
         <p>
           The <strong>(DoG)</strong> is the first of 3 step in the Canny Edge detection algorithm. After applying this filter we get back ∂I/∂x and ∂I/∂y (I is intensity so we are
-          taking the partial derivative of intensity w.r.t the x direction as well the y).
+          taking the partial derivative of intensity w.r.t the x direction as well the y). Also, you may hear "sobel filter" a lot when looking into the canny edge detector and that is another
+          filter used to compute gradients, we did not use that here.
         </p>
 
         <CodeBlock code={pythonCode} lang="python" />
@@ -163,11 +164,10 @@ export default function HarrisCornerDetectionPage() {
         </i>
 
         <p>
-          The next step is combining these images by squaring both of them and adding them. This is called the gradient magnitude,
+          The next step is combining these images by squaring both of them, adding them, and then taking the square root. This is called the gradient magnitude,
           which allows us to amplify strong signals and get rid of weaker ones while also combining the x and y gradients (the reason
           this amplifies strong signals and weakens smaller ones is because a small value squared gets smaller while a large value
-          squared gets larger). Also, you may hear "sobel filter" a lot when looking into the canny edge detector and that is another
-          filter used to compute gradients, we did not use that here.
+          squared gets larger).
         </p>
         <BlogImageLightbox
           src="/blog/canny-edge-detection/gradient_magnitude.png"
@@ -176,7 +176,7 @@ export default function HarrisCornerDetectionPage() {
           height={640}
         />
         <CodeBlock code={`# We now can combine them and this will give us all the edges in the image
-grad_mag = np.square(Ix) + np.square(Iy)`} lang="python" />
+grad_mag = np.sqrt(np.square(Ix) + np.square(Iy))`} lang="python" />
         <p>
           Ok so now we have a filter that can help us find where edges are and is invariant to noise. But before we move on, I want to
           pose the 2 things we want in a good edge detector. These will help lead us to the next two steps of the algorithm
@@ -226,8 +226,23 @@ grad_mag = np.square(Ix) + np.square(Iy)`} lang="python" />
           <source src="/blog/canny-edge-detection/GradientVectorExplanation.mp4" type="video/mp4" />
         </video>
 
+        <p>
+          The arctan of the two gradient intensities is what gets us our angle. When you have a 0 Ix value, arctan is
+          undefined. Also, when you have arctan(-1/-1) and arctan(1/1), they will point in the same direction. To
+          solve this, NumPy has a function <code>np.arctan2()</code> that will give us a value between -π and π
+          without these issues being a concern. Now what do we do with that angle? If we have a 45 degree angle, we
+          can now thin out edges along a 45 degree axis.
+        </p>
 
-
+        <p>Here are general steps:</p>
+        <ul className="ml-6 list-disc">
+          <li>look at the pixels direction</li>
+          <li>compare it to the 2 neighboring pixels along that direction</li>
+          <li>keep it only if it is the largest</li>
+        </ul>
+        <video className="blogInlineVideo" controls>
+          <source src="/blog/canny-edge-detection/NMSPatch45.mp4" type="video/mp4" />
+        </video>
 
 
       </section>
