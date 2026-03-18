@@ -11,9 +11,19 @@ export default function BlogPage() {
         <h2 className="sectionSubhead">Computer Vision</h2>
         <div className="rule" aria-hidden="true" />
         <div className="blogCardGrid">
-          <Link href="/blog/harris-corner-detection" className="blogCard blogCardLink">
+          <Link href="/blog/canny-edge-detection" className="blogCard blogCardLink">
             <h3>Understanding edges: Canny Edge Detector</h3>
-            <p>Mar 16, 2026</p>
+            <p>
+              Mar 17, 2026
+              <span className="blogCardUpdate">Last updated: Mar 17, 2026</span>
+            </p>
+          </Link>
+          <Link href="/blog/harris-corner-detection?post=harris-corner-detection" className="blogCard blogCardLink">
+            <h3>Understanding corners: Harris Corner Detection</h3>
+            <p>
+              Coming soon 👀
+              <span className="blogCardUpdate">Last updated: 👀</span>
+            </p>
           </Link>
         </div>
       </section>
