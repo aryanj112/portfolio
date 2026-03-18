@@ -386,6 +386,34 @@ iframe {
   display: block;
 }
 
+.blogAngleTable {
+  width: min(100%, 42rem);
+  margin: 1.25rem 0 1.75rem;
+  border-collapse: collapse;
+  border: 1px solid rgba(74, 59, 43, 0.16);
+  border-radius: 1rem;
+  overflow: hidden;
+  background: rgba(255, 252, 245, 0.72);
+}
+
+.blogAngleTable th,
+.blogAngleTable td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(74, 59, 43, 0.1);
+}
+
+.blogAngleTable th {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: rgba(155, 182, 173, 0.14);
+}
+
+.blogAngleTable tr:last-child td {
+  border-bottom: none;
+}
+
 .blogCodeBlock {
   margin: 22px 0 0;
   padding: 18px 20px;

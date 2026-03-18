@@ -234,9 +234,43 @@ grad_mag = np.sqrt(np.square(Ix) + np.square(Iy))`} lang="python" />
           can now thin out edges along a 45 degree axis.
         </p>
 
+        <p>
+          In practice, we usually don't keep every exact angle. Instead, we <strong>quantize</strong> the gradient
+          direction into a few main buckets so non-maximum suppression knows which neighboring pixels to compare
+          against. For Canny, this is usually done with 4 directions: 0°, 45°, 90°, and 135°.
+        </p>
+
+        <table className="blogAngleTable">
+          <thead>
+            <tr>
+              <th>Angle range</th>
+              <th>Quantized direction</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>-22.5° to 22.5°</td>
+              <td>0°</td>
+            </tr>
+            <tr>
+              <td>22.5° to 67.5°</td>
+              <td>45°</td>
+            </tr>
+            <tr>
+              <td>67.5° to 112.5°</td>
+              <td>90°</td>
+            </tr>
+            <tr>
+              <td>112.5° to 157.5°</td>
+              <td>135°</td>
+            </tr>
+          </tbody>
+        </table>
+
         <p>Here are general steps:</p>
         <ul className="ml-6 list-disc">
           <li>look at the pixels direction</li>
+          <li>quantize</li>
           <li>compare it to the 2 neighboring pixels along that direction</li>
           <li>keep it only if it is the largest</li>
         </ul>
@@ -244,6 +278,153 @@ grad_mag = np.sqrt(np.square(Ix) + np.square(Iy))`} lang="python" />
           <source src="/blog/canny-edge-detection/NMSPatch45.mp4" type="video/mp4" />
         </video>
 
+        <CodeBlock
+          language="python"
+          code={`# We already have the gradients combined and now 
+# we can take those and compute the angle using arctan2 and rad2deg
+angle = np.rad2deg(np.arctan2(Iy, Ix))
+
+# np.rad2deg() gives us angles from -180 to 180. Edges don't care about 
+# direction vs opposite direction. A 45 degree edge and a 225 degree edge are the same edge. 
+# Therefore we add 180 and divide by 180.
+angle = (angle + 180) % 180
+
+# q is the quantized array and we will use masks to apply the correct bins to each angle
+q = np.zeros_like(angle)
+
+mask = (angle >= 22.5) & (angle < 67.5)
+q[mask] = 45
+
+mask = (angle >= 67.5) & (angle < 112.5)
+q[mask] = 90
+
+mask = (angle >= 112.5) & (angle < 157.5)
+q[mask] = 135
+
+nms = np.zeros_like(grad_mag)
+H, W = nms.shape
+
+# we are chopping off the first and last values so we don't go out of bounds
+for y in range(1, H - 1):
+    for x in range(1, W - 1):
+        current_grad = grad_mag[y, x]
+        direction = q[y, x]
+
+        if direction == 0:
+            # this means we are going left to right
+            # p stands for pixel
+            p1 = grad_mag[y, x - 1]
+            p2 = grad_mag[y, x + 1]
+        elif direction == 45:
+            # the angle is 45 degrees so we need the top left and bottom right pixels
+            p1 = grad_mag[y - 1, x - 1]
+            p2 = grad_mag[y + 1, x + 1]
+        elif direction == 90:
+            # we are going up down
+            p1 = grad_mag[y - 1, x]
+            p2 = grad_mag[y + 1, x]
+        else:
+            # the angle is 135 so we need top right and bottom left
+            p1 = grad_mag[y - 1, x + 1]
+            p2 = grad_mag[y + 1, x - 1]
+        if current_grad >= p1 and current_grad >= p2:
+            nms[y, x] = current_grad`}
+        />
+
+        <BlogImageLightbox
+          src="/blog/canny-edge-detection/post_nms.png"
+          alt="Image after non-maximum suppression"
+          width={1200}
+          height={900}
+        />
+        <p>
+          As you can see the edges are a lot more localized and we are using less pixels to represent the same information.
+        </p>
+
+        <p>
+          The next and final step of the Canny Edge Detector algorithm is <strong>hysteresis thresholding</strong>. In this final step we classify
+          edges into 3 categories: <strong>strong edges, weak edges, and non edges</strong>. We do this via a double threshold system.
+          if an edge  is greater than th (the high threshold) it is a strong edge. If it is between th and tl it is a weak edge. If it is
+          below the tl (low threshold) it is a non edge. The key part of this algorithm is that a weak edge can only stay <strong>IF IT IS
+            CONNECTED TO A STRONG EDGE.</strong> How do we define weather or not a weak edge is connected to a strong edge? We employ a
+          8 neighbor check to and see if any edges in our surrounding pixels are strong. Note that the thresholds are arbitrary!
+        </p>
+
+        <CodeBlock
+          language="python"
+          code={`# we will now move into the final part of this algorithm: hysteresis thresholding
+# abitrary values for these (except the strong)
+high_thresh = 0.675 * nms.max()
+low_thresh = 0.2 * nms.max()
+
+strong = 255
+weak = 125
+
+res = np.zeros_like(nms, dtype=np.uint8)
+
+strong_y, strong_x = np.where(nms >= high_thresh)
+weak_y, weak_x = np.where((nms < high_thresh) & (nms >= low_thresh))
+res[strong_y, strong_x] = strong
+res[weak_y, weak_x] = weak
+
+# Now we do the 8-neighbor check
+H, W = res.shape
+for y in range(1, H - 1):
+    for x in range(1, W - 1):
+        if res[y, x] == weak:
+            if (
+                res[y - 1, x] == strong
+                or res[y + 1, x] == strong
+                or res[y, x - 1] == strong
+                or res[y, x + 1] == strong
+                or res[y - 1, x - 1] == strong
+                or res[y - 1, x + 1] == strong
+                or res[y + 1, x - 1] == strong
+                or res[y + 1, x + 1] == strong
+            ):
+                res[y, x] = strong
+            else:
+                res[y, x] = 0`}
+        />
+
+
+        <p>
+          THATS IT!!! The results are below. Also the hysteresis thresholding values can be changed and I encourage you to mess
+          around with. Oh also another note, this isn't real hysteresis thresholding because in the real one they use a BFS or DFS
+          to see if a weak is connected to a strong (
+          <a
+            className="paintLink"
+            href="https://www.youtube.com/watch?v=cS-198wtfj0&t=384s"
+            target="_blank"
+            rel="noreferrer"
+          >
+            BFS/DFS vid if you are unfamiliar
+          </a>
+          ). I encourage you to download
+          the code and try to implement this part for yourself.
+        </p>
+        <p>
+          In summary:
+        </p>
+        <ul className="ml-6 list-disc">
+          <li> DoG </li>
+          <li>NMS</li>
+          <li>Hysteresis Thresholding </li>
+        </ul>
+        <p>
+          Oh also we could have just used cv2s method...
+        </p>
+        <CodeBlock
+          language="python"
+          code={`canny_cv = cv2.Canny(img_gray, int(low_thresh), int(high_thresh))`} />
+
+        <BlogImageLightbox
+          src="/blog/canny-edge-detection/final.png"
+          alt="Final Canny edge detector output"
+          width={1200}
+          height={900}
+        />
+        <i>the cv2 version looks super bad because of the threshold values. i would recommend messing around with them to get a better result</i>
 
       </section>
     </SiteShell>
