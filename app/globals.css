@@ -466,6 +466,105 @@ iframe {
   border-color: rgba(78, 92, 72, 0.34);
 }
 
+.blogMathWrap {
+  position: relative;
+  margin-top: 18px;
+  scroll-margin-top: 110px;
+}
+
+.blogMathInlineButton {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.blogMathButton {
+  width: 100%;
+  padding: 14px 16px 8px;
+  border: 1px solid rgba(121, 104, 67, 0.18);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255, 251, 244, 0.98), rgba(247, 240, 228, 0.96));
+  box-shadow: 0 12px 24px rgba(79, 64, 45, 0.08);
+  text-align: left;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.blogMathButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 28px rgba(79, 64, 45, 0.12);
+  border-color: rgba(121, 104, 67, 0.28);
+}
+
+.blogMathButtonLabel {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #5e6d63;
+}
+
+.blogMathButton .katex-display {
+  margin: 0;
+}
+
+.blogMathBackdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(37, 31, 24, 0.38);
+  z-index: 35;
+}
+
+.blogMathPopover {
+  width: min(34rem, 100%);
+  max-width: 34rem;
+  padding: 16px 18px;
+  border: 1px solid rgba(121, 104, 67, 0.2);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top left, rgba(190, 227, 201, 0.42), transparent 44%),
+    linear-gradient(180deg, rgba(255, 251, 244, 0.99), rgba(247, 240, 228, 0.98));
+  box-shadow: 0 18px 36px rgba(79, 64, 45, 0.16);
+}
+
+.blogMathPopoverEquation .katex-display {
+  margin: 0 0 12px;
+}
+
+.blogMathKey {
+  display: grid;
+  gap: 8px;
+}
+
+.blogMathKeyRow {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.blogMathKeySymbol {
+  color: #355a74;
+  white-space: nowrap;
+}
+
+.blogMathKeySymbol .katex {
+  font-size: 1.02em;
+}
+
+.blogMathKeyColon {
+  margin-right: 0.1rem;
+}
+
 .blogImageToggleBlock {
   margin-top: 18px;
 }
