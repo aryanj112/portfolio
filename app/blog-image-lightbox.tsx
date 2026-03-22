@@ -8,15 +8,16 @@ type BlogImageLightboxProps = {
   alt: string;
   width: number;
   height: number;
+  className?: string;
 };
 
-export function BlogImageLightbox({ src, alt, width, height }: BlogImageLightboxProps) {
+export function BlogImageLightbox({ src, alt, width, height, className }: BlogImageLightboxProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <button type="button" className="blogImageButton" onClick={() => setIsOpen(true)}>
-        <Image className="blogInlineImage" src={src} alt={alt} width={width} height={height} />
+        <Image className={className ?? "blogInlineImage"} src={src} alt={alt} width={width} height={height} />
       </button>
 
       {isOpen ? (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BlogImageLightbox } from "../../blog-image-lightbox";
 import { BlogImageToggle } from "../../blog-image-toggle";
 import { BlogViewCount } from "../../blog-view-count";
 import { SiteShell } from "../../components";
@@ -15,7 +16,13 @@ export default function HarrisCornersPage() {
         <h1>Understanding corners: Harris Corner Detection</h1>
         <div className="blogPostMetaRow">
           <p className="blogByline">By: Aryan Jain</p>
-          <a href="#" className="blogCodeLink" aria-label="Code for this post coming soon">
+          <a
+            href="https://github.com/aryanj112/computer-vision/blob/main/notebooks/harris-corner-detection.ipynb"
+            className="blogCodeLink"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="View code for this post"
+          >
             <span className="blogCodeLinkIcon" aria-hidden="true">
               {"</>"}
             </span>
@@ -70,7 +77,18 @@ export default function HarrisCornersPage() {
           height={900}
         />
 
-        <p>Now I want to take a look at </p>
+        <p>Now I want to take a look at some handwritten notes I had. Say we take the blue and green image and take an arbitrary
+          window and shift that window by a factor of u and v (as we just did). Now if we take the difference of the two windows
+          (subtracting the intensity values for corresponding pixels aka the change in intensity of the two windows) we now have the
+          difference in intensity when we move by a factor of u and v. If take that singular value we can plot it on a coordinate
+          grid marked by u and v.</p>
+
+        <BlogImageLightbox
+          src="/blog/harris-corner-detection/goodnotes_shift.png"
+          alt="GoodNotes shifted patch diagram"
+          width={1200}
+          height={900}
+        />
 
 
       </section>
