@@ -606,6 +606,89 @@ iframe {
   border-color: rgba(94, 122, 104, 0.32);
 }
 
+.harrisSurfaceDemo {
+  margin-top: 22px;
+  padding: 14px;
+  border: 1px solid rgba(121, 104, 67, 0.16);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top left, rgba(198, 225, 210, 0.34), transparent 36%),
+    linear-gradient(180deg, rgba(255, 251, 244, 0.98), rgba(247, 240, 228, 0.96));
+  box-shadow: 0 16px 28px rgba(79, 64, 45, 0.08);
+}
+
+.harrisSurfaceTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.harrisSurfaceEyebrow {
+  margin: 0 0 4px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5e7f6d;
+}
+
+.harrisSurfaceTitle {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.harrisSurfaceBadge {
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(234, 242, 236, 0.92);
+  color: #355646;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.harrisSurfaceSvg {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  background: rgba(252, 248, 241, 0.8);
+  cursor: grab;
+}
+
+.harrisSurfaceSvg:active {
+  cursor: grabbing;
+}
+
+.harrisSurfaceControls {
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.harrisSurfaceHint {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.harrisSurfaceSlider {
+  display: grid;
+  gap: 4px;
+}
+
+.harrisSurfaceSlider span {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.harrisSurfaceSlider input {
+  width: 100%;
+}
+
 
 .blogInlineImage {
   width: 100%;

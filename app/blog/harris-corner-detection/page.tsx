@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { InlineMath } from "react-katex";
 import { BlogImageLightbox } from "../../blog-image-lightbox";
 import { BlogMathAnchorLink } from "../../blog-math-anchor-link";
 import { BlogImageToggle } from "../../blog-image-toggle";
 import { BlogMathPopup } from "../../blog-math-popup";
 import { BlogViewCount } from "../../blog-view-count";
+import { HarrisSurfaceDemo } from "../../harris-surface-demo";
 import { SiteShell } from "../../components";
 
 export const metadata: Metadata = {
@@ -119,7 +121,7 @@ export default function HarrisCornersPage() {
         />
 
         <p>
-          So we have established that we want to track corners, the question now becomes how can we use this Auto-Correlation function
+          So we have established that we want to track corners, the question now becomes how can we use this auto-correlation function
           to do so. We want to see <strong>high values</strong> (meaning there is a large pixel change so it is either an edge or corner)
           <strong> AND</strong> we want to see that the change in pixel intensity is happening in the
           <strong> left and right direction</strong>. This will tell us that we have a corner and not a patch or edge.
@@ -134,6 +136,25 @@ export default function HarrisCornersPage() {
           </BlogMathAnchorLink>
           .
         </p>
+
+        <p>
+          We saw in the last blog post that finding the derivatives of the intesity in the x and y direction were very easy. With
+          this tool in our bag we can now look at approximating this term with a taylor expansion: I(x+u, y+v). If you don't know what
+          a taylor expansion is watch{" "}
+          <a href="https://www.youtube.com/watch?v=3d6DsjIBzJ4" className="paintLink" target="_blank" rel="noreferrer">
+            this video
+          </a>{" "}
+          and if you don't have a solid understanding of calculus just know that we can approximate I(x+u, y+v) for small changes
+          in u and v using a taylor expansion. <strong>With that said we can approximate </strong>
+          <InlineMath math={"I(x+u, y+v) \\approx I(x,y) + uI_x(x,y) + vI_y(x,y)"} />
+        </p>
+
+        <video className="blogInlineVideo" controls>
+          <source src="/blog/harris-corner-detection/autocorrelation.mp4" type="video/mp4" />
+        </video>
+
+        <HarrisSurfaceDemo />
+
       </section>
     </SiteShell>
   );
