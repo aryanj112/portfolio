@@ -8,6 +8,7 @@ import { BlogMathPopup } from "../../blog-math-popup";
 import { BlogViewCount } from "../../blog-view-count";
 import { HarrisSurfaceDemo } from "../../harris-surface-demo";
 import { SiteShell } from "../../components";
+import { PaintLink } from "../../paint-link";
 
 export const metadata: Metadata = {
   title: "Understanding corners: Harris Corner Detection",
@@ -41,18 +42,18 @@ export default function HarrisCornersPage() {
           </Link>
         </div>
         <p>
-          Hey everyone! In this blog we are going to be delving into the Harris Corner Detection algoirthm. Before we dive into this
-          I really recommend reading the article about canny edge detection as some of the concepts bleed into this blog. With that said
-          lets dive into it!
+          Hey everyone! In this blog we are going to be delving into the Harris Corner Detection algorithm. Before we dive into this
+          I really recommend reading the article about Canny edge detection as some of the concepts bleed into this blog. With that said
+          let's dive into it!
         </p>
         <p>
-          So as you can tell from the title of this post we are looking at an algoirthm that can detect corners in an image. This is
-          useful because when we want to start tracking features in a video the feature we use to track are corners. The reason we use
+          So as you can tell from the title of this post we are looking at an algorithm that can detect corners in an image. This is
+          useful because when we want to start tracking features in a video the features we use to track are corners. The reason we use
           corners as opposed to edges will become clear very soon.
         </p>
 
         <p>
-          Take a look at this image. There are three seperate patches of pixels displayed here each of a different type: patch, edge,
+          Take a look at this image. There are three separate patches of pixels displayed here each of a different type: patch, edge,
           or corner.
         </p>
 
@@ -69,7 +70,7 @@ export default function HarrisCornersPage() {
           Now, these are the same patches, each moved around a little bit. What we see is that, among these three, the patch is nearly
           impossible to notice changes in, the edge is a little bit easier, and the corner is very easy to tell. Based on some of the math
           in this post and the intuition you have just gained, we see that corners are very easy to track and because of that they
-          will prove to be pivotal in tracking features. As we discussed in the previous blog, tracking features has limitless possibilites.
+          will prove to be pivotal in tracking features. As we discussed in the previous blog, tracking features has limitless possibilities.
         </p>
 
         <BlogImageToggle
@@ -84,7 +85,7 @@ export default function HarrisCornersPage() {
         <p>Now I want to take a look at some handwritten notes I had. Say we take the blue and green image and take an arbitrary
           window and shift that window by a factor of u and v (as we just did). Now if we take the difference of the two windows
           (subtracting the intensity values for corresponding pixels aka the change in intensity of the two windows) we now have the
-          <strong> difference in intensity when we move by a factor of u and v</strong>. If take that singular value we can plot it on a coordinate
+          <strong> difference in intensity when we move by a factor of u and v</strong>. If we take that singular value we can plot it on a coordinate
           grid marked by u and v (as shown below).</p>
 
         <BlogImageLightbox
@@ -138,14 +139,12 @@ export default function HarrisCornersPage() {
         </p>
 
         <p>
-          We saw in the last blog post that finding the derivatives of the intesity in the x and y direction were very easy. With
-          this tool in our bag we can now look at approximating this term with a taylor expansion: I(x+u, y+v). If you don't know what
-          a taylor expansion is watch{" "}
-          <a href="https://www.youtube.com/watch?v=3d6DsjIBzJ4" className="paintLink" target="_blank" rel="noreferrer">
-            this video
-          </a>{" "}
+          We saw in the last blog post that finding the derivatives of the intensity in the x and y direction were very easy. With
+          this tool in our bag we can now look at approximating this term with a Taylor expansion: I(x+u, y+v). If you don't know what
+          a Taylor expansion is watch
+          <PaintLink href="https://www.youtube.com/watch?v=3d6DsjIBzJ4">this video</PaintLink>
           and if you don't have a solid understanding of calculus just know that we can approximate I(x+u, y+v) for small changes
-          in u and v using a taylor expansion. <strong>With that said we can approximate </strong>
+          in u and v using a Taylor expansion. <strong>With that said we can approximate </strong>
           <InlineMath math={"I(x+u, y+v) \\approx I(x,y) + uI_x(x,y) + vI_y(x,y)"} />
         </p>
 

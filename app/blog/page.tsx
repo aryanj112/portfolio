@@ -15,7 +15,7 @@ export default function BlogPage() {
             <h3>Understanding edges: Canny Edge Detector</h3>
             <p>
               Mar 17, 2026
-              <span className="blogCardUpdate">Last updated: Mar 17, 2026</span>
+              <span className="blogCardUpdate">Last updated: Mar 23, 2026</span>
             </p>
           </Link>
           <Link href="/blog/harris-corner-detection?post=harris-corner-detection" className="blogCard blogCardLink">
@@ -23,6 +23,20 @@ export default function BlogPage() {
             <p>
               Coming soon 👀
               <span className="blogCardUpdate">Last updated: 👀</span>
+            </p>
+          </Link>
+        </div>
+      </section>
+
+      <section className="storySection blogLandingSection">
+        <h2 className="sectionSubhead">Linux</h2>
+        <div className="rule" aria-hidden="true" />
+        <div className="blogCardGrid">
+          <Link href="/blog/linux-basics" className="blogCard blogCardLink">
+            <h3>Linux Basics</h3>
+            <p>
+              Mar 25, 2026
+              <span className="blogCardUpdate">Last updated: Mar 25, 2026</span>
             </p>
           </Link>
         </div>

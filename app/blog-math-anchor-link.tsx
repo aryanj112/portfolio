@@ -1,5 +1,7 @@
 "use client";
 
+import { PaintLink } from "./paint-link";
+
 export function BlogMathAnchorLink({
   anchorId,
   children,
@@ -8,9 +10,8 @@ export function BlogMathAnchorLink({
   children: React.ReactNode;
 }) {
   return (
-    <a
+    <PaintLink
       href={`#${anchorId}`}
-      className="paintLink"
       onClick={() => {
         window.dispatchEvent(
           new CustomEvent("blog-math-open", {
@@ -20,6 +21,6 @@ export function BlogMathAnchorLink({
       }}
     >
       {children}
-    </a>
+    </PaintLink>
   );
 }

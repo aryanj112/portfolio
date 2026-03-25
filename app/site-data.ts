@@ -39,7 +39,7 @@ export const profile = {
   schoolShort: "UMD",
   schoolUrl: "https://www.cs.umd.edu/",
   careerInterests:
-    "Right now, I am especially interested in robotics, drones, computer vision, AI, embedded systems, and computer graphics. Long term, I want to combine AI, robotics, and my environmental minors to build technology that can help protect the environment.",
+    "Right now, I am especially interested in robotics, drones, computer vision, AI, and embedded systems. Long term, I want to combine AI, robotics, and my environmental minors to build technology that can help protect the environment.",
 };
 
 export const collegeCoursework = {

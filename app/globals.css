@@ -758,15 +758,102 @@ iframe {
   white-space: pre;
 }
 
+.blogCodeBlockFrame {
+  margin-top: 18px;
+  border: 1px solid rgba(57, 64, 78, 0.42);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(31, 35, 44, 0.98), rgba(24, 28, 36, 0.98));
+  box-shadow: 0 12px 26px rgba(23, 26, 33, 0.14);
+  overflow: hidden;
+}
+
+.blogCodeBlockTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(145, 158, 171, 0.18);
+  background: linear-gradient(180deg, rgba(40, 45, 56, 0.98), rgba(31, 35, 44, 0.98));
+}
+
+.blogCodeBlockLanguage {
+  font-family: "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: rgba(214, 223, 232, 0.88);
+}
+
+.blogCodeBlockCopyButton {
+  border: 1px solid rgba(145, 158, 171, 0.22);
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #e8edf3;
+  font-family: "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.7rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.blogCodeBlockCopyButton:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(184, 198, 214, 0.34);
+}
+
 .blogCodeBlockShiki {
-  margin-top: 22px;
+  margin: 0;
 }
 
 .blogCodeBlockShiki pre {
   margin: 0;
-  padding: 18px 20px;
-  border-radius: 20px;
+  padding: 14px 16px 16px;
+  border-radius: 0;
   overflow-x: auto;
+}
+
+.blogCodeBlockShiki pre code {
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.blogCodeOutputFrame {
+  margin-top: 18px;
+  border: 1px solid rgba(57, 64, 78, 0.42);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(31, 35, 44, 0.98), rgba(24, 28, 36, 0.98));
+  box-shadow: 0 12px 26px rgba(23, 26, 33, 0.14);
+  overflow: hidden;
+}
+
+.blogCodeOutputSection {
+  border-top: 1px solid rgba(145, 158, 171, 0.18);
+  background: linear-gradient(180deg, rgba(24, 28, 36, 0.98), rgba(18, 22, 28, 0.98));
+}
+
+.blogCodeOutputLabel {
+  padding: 8px 12px 0;
+  font-family: "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: rgba(214, 223, 232, 0.72);
+}
+
+.blogCodeOutputPre {
+  margin: 0;
+  padding: 8px 16px 16px;
+  overflow-x: auto;
+  font-family: "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: #d9e2ec;
+  white-space: pre-wrap;
 }
 
 .blogLearnMore {
@@ -798,6 +885,49 @@ iframe {
   font-family: "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
   font-size: 0.75rem;
   cursor: pointer;
+}
+
+.blogInlineRevealTerm {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  cursor: help;
+  outline: none;
+}
+
+.blogInlineRevealText {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.5rem);
+  transform: translate(-50%, 0.35rem);
+  min-width: max-content;
+  max-width: min(22rem, calc(100vw - 3rem));
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(121, 104, 67, 0.2);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 251, 244, 0.99), rgba(247, 240, 228, 0.98));
+  box-shadow: 0 12px 28px rgba(79, 64, 45, 0.14);
+  white-space: normal;
+  opacity: 0;
+  pointer-events: none;
+  color: var(--muted);
+  font-weight: 400;
+  line-height: 1.4;
+  z-index: 20;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.blogInlineRevealTerm::after,
+.blogInlineRevealTerm:hover::after,
+.blogInlineRevealTerm:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.blogInlineRevealTerm:hover .blogInlineRevealText,
+.blogInlineRevealTerm:focus-visible .blogInlineRevealText {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .blogImageButton {

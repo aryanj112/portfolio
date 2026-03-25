@@ -1,11 +1,13 @@
 import { codeToHtml } from "shiki";
-import { CodeBlockClient } from "./code-block-client";
+import { CodeOutputBlockClient } from "./code-output-block-client";
 
-export async function CodeBlock({
+export async function CodeOutputBlock({
   code,
+  output,
   language,
 }: {
   code: string;
+  output: string;
   language?: "bash" | "python" | "tsx" | "typescript" | "javascript";
 }) {
   const resolvedLanguage = language ?? "python";
@@ -14,5 +16,5 @@ export async function CodeBlock({
     theme: "github-dark",
   });
 
-  return <CodeBlockClient code={code} html={html} language={resolvedLanguage} />;
+  return <CodeOutputBlockClient code={code} html={html} language={resolvedLanguage} output={output} />;
 }
