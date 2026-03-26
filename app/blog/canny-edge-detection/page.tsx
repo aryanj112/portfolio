@@ -22,6 +22,10 @@ export default function HarrisCornerDetectionPage() {
         </h1>
         <div className="blogPostMetaRow">
           <p className="blogByline">By: Aryan Jain</p>
+          <span className="blogPostDateReveal" tabIndex={0}>
+            <span className="blogPostDate">Mar 17, 2026</span>
+            <span className="blogPostDateHover">Last updated: Mar 23, 2026</span>
+          </span>
           <a
             href="https://github.com/aryanj112/computer-vision/blob/main/notebooks/canny-edge-detection.ipynb"
             className="blogCodeLink"

@@ -49,6 +49,10 @@ iframe {
   position: relative;
 }
 
+.secretContent {
+  padding-top: 12px;
+}
+
 .masthead {
   margin-bottom: 40px;
 }
@@ -336,6 +340,19 @@ iframe {
   max-width: 100%;
 }
 
+.blogPostShell p .katex,
+.blogPostShell li .katex,
+.blogPostShell i .katex {
+  margin-inline: 0.16em;
+}
+
+.blogPostShell .katex-display {
+  margin-left: 0.45rem;
+  margin-right: 0.45rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
 .blogPostMetaRow {
   margin-top: 14px;
   display: flex;
@@ -349,6 +366,50 @@ iframe {
   font-size: 1.04rem;
   font-weight: 700;
   color: var(--text);
+}
+
+.blogPostDate {
+  margin: 0;
+  font-family: "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.blogPostDateReveal {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: default;
+  outline: none;
+}
+
+.blogPostDateHover {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.45rem);
+  transform: translate(-50%, 0.3rem);
+  min-width: max-content;
+  max-width: min(18rem, calc(100vw - 3rem));
+  padding: 0.45rem 0.6rem;
+  border: 1px solid rgba(121, 104, 67, 0.2);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 251, 244, 0.99), rgba(247, 240, 228, 0.98));
+  box-shadow: 0 12px 28px rgba(79, 64, 45, 0.14);
+  font-family: "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--muted);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.blogPostDateReveal:hover .blogPostDateHover,
+.blogPostDateReveal:focus-visible .blogPostDateHover {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .blogViewCountWrap {
@@ -617,49 +678,147 @@ iframe {
   box-shadow: 0 16px 28px rgba(79, 64, 45, 0.08);
 }
 
-.harrisSurfaceTop {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 12px;
+.harrisSurfaceEquation {
+  margin-bottom: 8px;
 }
 
-.harrisSurfaceEyebrow {
-  margin: 0 0 4px;
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #5e7f6d;
-}
-
-.harrisSurfaceTitle {
+.harrisSurfaceEquation .katex-display {
   margin: 0;
-  font-size: 1rem;
+  padding-inline: 0;
 }
 
-.harrisSurfaceBadge {
-  margin: 0;
-  padding: 6px 10px;
+.harrisSurfaceEquation .katex-display+.katex-display {
+  margin-top: 10px;
+}
+
+.harrisSurfaceToggleRow {
+  margin-bottom: 10px;
+}
+
+.harrisDiagonalToggle {
+  border: 1px solid rgba(121, 104, 67, 0.18);
   border-radius: 999px;
-  background: rgba(234, 242, 236, 0.92);
-  color: #355646;
+  padding: 6px 12px;
+  background: rgba(255, 251, 244, 0.92);
+  color: var(--muted);
   font-size: 0.82rem;
   font-weight: 700;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.harrisDiagonalToggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(79, 64, 45, 0.08);
+  border-color: rgba(121, 104, 67, 0.28);
+}
+
+.harrisDiagonalToggle.isActive {
+  background: linear-gradient(180deg, rgba(232, 241, 236, 0.98), rgba(220, 234, 225, 0.95));
+  color: #355646;
+  border-color: rgba(94, 122, 104, 0.32);
+}
+
+.harrisSurfacePanels {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.harrisSurfacePanel {
+  border-radius: 18px;
+  background: rgba(252, 248, 241, 0.8);
+  overflow: hidden;
+}
+
+.harrisRightViews {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+}
+
+.harrisCrossSectionToggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.harrisCrossSectionButton {
+  border: 1px solid rgba(121, 104, 67, 0.18);
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: rgba(255, 251, 244, 0.92);
+  color: var(--muted);
+  font-size: 0.8rem;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.harrisCrossSectionButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(79, 64, 45, 0.08);
+  border-color: rgba(121, 104, 67, 0.28);
+}
+
+.harrisCrossSectionButton.isActive {
+  background: linear-gradient(180deg, rgba(232, 241, 236, 0.98), rgba(220, 234, 225, 0.95));
+  color: #355646;
+  border-color: rgba(94, 122, 104, 0.32);
+}
+
+.harrisMiniPanel {
+  border-radius: 14px;
+  background: rgba(255, 251, 244, 0.82);
+  overflow: visible;
+}
+
+.harrisMiniLabel {
+  margin: 0;
+  padding: 10px 12px 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
 }
 
 .harrisSurfaceSvg {
   width: 100%;
   height: auto;
-  border-radius: 18px;
-  background: rgba(252, 248, 241, 0.8);
   cursor: grab;
 }
 
 .harrisSurfaceSvg:active {
   cursor: grabbing;
+}
+
+.harrisCrossSectionSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.harrisRegionLabel {
+  fill: #3d4474;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.harrisRegionMath {
+  fill: #3d4474;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.harrisRegionLabel,
+.harrisRegionMath {
+  paint-order: stroke;
+  stroke: rgba(255, 250, 242, 0.55);
+  stroke-width: 1.2px;
+}
+
+.harrisAxisLabel {
+  fill: #4a3b2b;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .harrisSurfaceControls {
@@ -668,10 +827,36 @@ iframe {
   gap: 10px;
 }
 
+.harrisSurfaceControlsTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
 .harrisSurfaceHint {
   margin: 0;
+  padding: 0 10px 12px;
   font-size: 0.78rem;
   color: var(--muted);
+}
+
+.harrisResetButton {
+  border: 1px solid rgba(121, 104, 67, 0.18);
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: rgba(255, 251, 244, 0.92);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.harrisResetButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(79, 64, 45, 0.08);
+  border-color: rgba(121, 104, 67, 0.28);
 }
 
 .harrisSurfaceSlider {
@@ -687,6 +872,10 @@ iframe {
 
 .harrisSurfaceSlider input {
   width: 100%;
+}
+
+.harrisSurfaceSlider input:disabled {
+  opacity: 0.45;
 }
 
 
@@ -738,6 +927,149 @@ iframe {
 
 .blogAngleTable tr:last-child td {
   border-bottom: none;
+}
+
+.harrisResponseTableWrap {
+  margin: 1.4rem 0 1.9rem;
+  padding: 1rem 1rem 1.15rem;
+  border: 1px solid rgba(74, 59, 43, 0.14);
+  border-radius: 1.25rem;
+  background: rgba(255, 252, 245, 0.72);
+}
+
+.harrisResponseTableTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.harrisResponseTableTitle {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.harrisResponseSlider {
+  display: grid;
+  gap: 0.35rem;
+  min-width: min(100%, 15rem);
+}
+
+.harrisResponseSlider span {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.harrisResponseSlider input {
+  width: 100%;
+}
+
+.harrisResponseTableScroll {
+  overflow-x: auto;
+}
+
+.harrisResponseTable {
+  width: 100%;
+  min-width: 44rem;
+  border-collapse: collapse;
+}
+
+.harrisResponseTable th,
+.harrisResponseTable td {
+  padding: 0.68rem 0.72rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(74, 59, 43, 0.1);
+  vertical-align: top;
+  font-size: 0.92rem;
+}
+
+.harrisResponseTable th {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: rgba(155, 182, 173, 0.14);
+}
+
+.harrisResponseCaseCol {
+  width: 4.1rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.harrisResponseLambdaCol {
+  width: 3.5rem;
+  white-space: nowrap;
+  font-size: 0.98rem;
+  font-weight: 400;
+}
+
+.harrisResponseValueCol {
+  width: 5.2rem;
+  white-space: nowrap;
+}
+
+.harrisResponseFormulaCol {
+  width: 10rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.harrisResponseHeaderSplit {
+  display: inline-grid;
+  gap: 0.12rem;
+  line-height: 1.05;
+}
+
+.harrisResponseInterpretationCol {
+  width: 8rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.harrisResponseTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.harrisResponseTable td.isPositive,
+.harrisResponseTable td.isPositiveText {
+  color: #23744f;
+  font-weight: 700;
+}
+
+.harrisResponseTable td.isNeutral,
+.harrisResponseTable td.isNeutralText {
+  color: #6b6963;
+  font-weight: 700;
+}
+
+.harrisResponseTable td.isNegative,
+.harrisResponseTable td.isNegativeText {
+  color: #b14b3d;
+  font-weight: 700;
+}
+
+.harrisResponseInput {
+  width: 4rem;
+  padding: 0.28rem 0.36rem;
+  border: 1px solid rgba(74, 59, 43, 0.18);
+  border-radius: 0.7rem;
+  background: rgba(255, 251, 244, 0.96);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.98rem;
+  font-weight: 400;
+  appearance: textfield;
+}
+
+.harrisResponseInput::-webkit-outer-spin-button,
+.harrisResponseInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .blogCodeBlock {
@@ -980,6 +1312,7 @@ iframe {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -990,6 +1323,7 @@ iframe {
     transform: scale(0.965);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -1082,7 +1416,7 @@ iframe {
   color: var(--muted);
 }
 
-.aboutSentenceBlock p + p {
+.aboutSentenceBlock p+p {
   margin-top: 10px;
 }
 
@@ -1130,14 +1464,12 @@ iframe {
   width: 100%;
   height: 1px;
   background:
-    linear-gradient(
-      90deg,
+    linear-gradient(90deg,
       transparent 0%,
       rgba(110, 126, 87, 0.1) 12%,
       var(--rule) 50%,
       rgba(143, 86, 49, 0.12) 88%,
-      transparent 100%
-    );
+      transparent 100%);
 }
 
 .twoColumnCopy {
@@ -1462,10 +1794,7 @@ iframe {
   opacity: calc(1 - (var(--project-depth, 0) * 0.12));
   filter: blur(calc(var(--project-depth, 0) * 1.4px)) saturate(calc(1 - (var(--project-depth, 0) * 0.08)));
   transform:
-    translateX(calc(-50% + (var(--project-offset, 0) * 8.2rem)))
-    translateY(calc(var(--project-depth, 0) * 0.9rem))
-    scale(calc(1 - (var(--project-depth, 0) * 0.08)))
-    rotate(var(--project-tilt, 0deg));
+    translateX(calc(-50% + (var(--project-offset, 0) * 8.2rem))) translateY(calc(var(--project-depth, 0) * 0.9rem)) scale(calc(1 - (var(--project-depth, 0) * 0.08))) rotate(var(--project-tilt, 0deg));
   transition:
     transform 360ms cubic-bezier(0.22, 0.78, 0.18, 1),
     opacity 360ms cubic-bezier(0.22, 0.78, 0.18, 1),
@@ -1712,18 +2041,16 @@ iframe {
 
 .projectCarouselDot.isActive.shapeStar {
   border-radius: 0;
-  clip-path: polygon(
-    50% 0%,
-    61% 35%,
-    98% 35%,
-    68% 57%,
-    79% 91%,
-    50% 70%,
-    21% 91%,
-    32% 57%,
-    2% 35%,
-    39% 35%
-  );
+  clip-path: polygon(50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%);
 }
 
 .projectCarouselCount {
@@ -2269,6 +2596,7 @@ iframe {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -2378,10 +2706,7 @@ iframe {
   .projectStageCard {
     width: min(25rem, calc(100% - 0.5rem));
     transform:
-      translateX(calc(-50% + (var(--project-offset, 0) * 3.8rem)))
-      translateY(calc(var(--project-depth, 0) * 0.75rem))
-      scale(calc(1 - (var(--project-depth, 0) * 0.08)))
-      rotate(var(--project-tilt, 0deg));
+      translateX(calc(-50% + (var(--project-offset, 0) * 3.8rem))) translateY(calc(var(--project-depth, 0) * 0.75rem)) scale(calc(1 - (var(--project-depth, 0) * 0.08))) rotate(var(--project-tilt, 0deg));
   }
 
   .projectCarouselSlider {
@@ -2622,10 +2947,7 @@ iframe {
     height: 28rem;
     border-radius: 22px;
     transform:
-      translateX(calc(-50% + (var(--project-offset, 0) * 2.8rem)))
-      translateY(calc(var(--project-depth, 0) * 0.65rem))
-      scale(calc(1 - (var(--project-depth, 0) * 0.08)))
-      rotate(var(--project-tilt, 0deg));
+      translateX(calc(-50% + (var(--project-offset, 0) * 2.8rem))) translateY(calc(var(--project-depth, 0) * 0.65rem)) scale(calc(1 - (var(--project-depth, 0) * 0.08))) rotate(var(--project-tilt, 0deg));
   }
 
   .projectStageSummary {

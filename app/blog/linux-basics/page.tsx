@@ -17,6 +17,10 @@ export default function LinuxBasicsPage() {
         <h1>Linux Basics</h1>
         <div className="blogPostMetaRow">
           <p className="blogByline">By: Aryan Jain</p>
+          <span className="blogPostDateReveal" tabIndex={0}>
+            <span className="blogPostDate">Mar 25, 2026</span>
+            <span className="blogPostDateHover">Last updated: Mar 25, 2026</span>
+          </span>
           <BlogViewCount slug="linux-basics" />
         </div>
 
@@ -230,7 +234,7 @@ echo "using the >> appends to the file instead of deleting it" >> cat.txt`}
 
         <p><strong>FINAL REMARKS</strong></p>
         <p>
-          I used this blog mainly a notes tab for myself so while I hope it was useful I do recognize that this isn't the best way
+          I used this blog mainly as a notes tab for myself so while I hope it was useful I do recognize that this isn&apos;t the best way
           to learn Linux. I think that you should
           <PaintLink href="https://labex.io/linuxjourney">look at this resource</PaintLink>
           which is where I learned. Also as you develop as a CS student

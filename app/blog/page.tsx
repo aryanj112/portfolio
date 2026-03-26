@@ -21,8 +21,8 @@ export default function BlogPage() {
           <Link href="/blog/harris-corner-detection?post=harris-corner-detection" className="blogCard blogCardLink">
             <h3>Understanding corners: Harris Corner Detection</h3>
             <p>
-              Coming soon 👀
-              <span className="blogCardUpdate">Last updated: 👀</span>
+              Mar 26, 2026
+              <span className="blogCardUpdate">Last updated: Mar 26, 2026</span>
             </p>
           </Link>
         </div>
@@ -34,6 +34,13 @@ export default function BlogPage() {
         <div className="blogCardGrid">
           <Link href="/blog/linux-basics" className="blogCard blogCardLink">
             <h3>Linux Basics</h3>
+            <p>
+              Mar 25, 2026
+              <span className="blogCardUpdate">Last updated: Mar 25, 2026</span>
+            </p>
+          </Link>
+          <Link href="/blog/linux-processes" className="blogCard blogCardLink">
+            <h3>Linux Processes</h3>
             <p>
               Mar 25, 2026
               <span className="blogCardUpdate">Last updated: Mar 25, 2026</span>
