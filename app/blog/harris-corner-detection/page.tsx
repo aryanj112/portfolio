@@ -217,7 +217,7 @@ Iy = ndimage.convolve1d(blur, kernel, axis=0, mode='reflect', output=np.float32)
         <p> Now we compute the values needed for the M matrix</p>
 
         <BlogImageLightbox
-          src="/blog/harris-corner-detection/Ix2_iy2_ixy.png"
+          src="/blog/harris-corner-detection/ix2_iy2_ixy.png"
           alt="Ix squared, Iy squared, and Ixy visualizations"
           width={1200}
           height={900}
