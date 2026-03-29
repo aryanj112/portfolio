@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InlineMath } from "react-katex";
+import { BlogCodeLink } from "../../blog-code-link";
 import { BlogImageLightbox } from "../../blog-image-lightbox";
 import { BlogMathAnchorLink } from "../../blog-math-anchor-link";
 import { BlogImageToggle } from "../../blog-image-toggle";
 import { BlogMathPopup } from "../../blog-math-popup";
+import { PStrong } from "../../blog-strong-heading";
 import { BlogViewCount } from "../../blog-view-count";
 import { HarrisSurfaceDemo } from "../../harris-surface-demo";
 import { HarrisResponseTable } from "../../harris-response-table";
@@ -28,18 +30,7 @@ export default function HarrisCornersPage() {
             <span className="blogPostDate">Mar 26, 2026</span>
             <span className="blogPostDateHover">Last updated: Mar 26, 2026</span>
           </span>
-          <a
-            href="https://github.com/aryanj112/computer-vision/blob/main/notebooks/harris-corner-detection.ipynb"
-            className="blogCodeLink"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="View code for this post"
-          >
-            <span className="blogCodeLinkIcon" aria-hidden="true">
-              {"</>"}
-            </span>
-            <span>Code</span>
-          </a>
+          <BlogCodeLink href="https://github.com/aryanj112/computer-vision/blob/main/notebooks/harris-corner-detection.ipynb" />
           <BlogViewCount slug="harris-corner-detection" />
         </div>
         <div className="blogReadingRow">
@@ -258,7 +249,7 @@ G_Ixy = cv2.GaussianBlur(Ixy, (smooth_window_size, smooth_window_size), 0)`}
           I want to discuss how to do that.
         </p>
 
-        <p><strong>Shi-Tomasi Corner Detection:</strong></p>
+        <PStrong>Shi-Tomasi Corner Detection:</PStrong>
         <p>
           In this method, as we talked about eariler we can use the Eigenvalues to determine if a pixel is likely to be a corner.
           The trick is that we need two large Eigenvalues so in this method we take the M matrix for each pixel and computer the Eigenvalues
@@ -266,7 +257,7 @@ G_Ixy = cv2.GaussianBlur(Ixy, (smooth_window_size, smooth_window_size), 0)`}
           Why this works is because if the smallest Eigenvalue is larger then a threshold then both of the values are sufficiently large.
         </p>
 
-        <p><strong>Harris-Stephens Corner Detection:</strong></p>
+        <PStrong>Harris-Stephens Corner Detection:</PStrong>
         <p>
           It turns out however that calculating the Eigenvalues a couple thousand times is not efficient. Instead we can use this formula
           <InlineMath math={" R = \\det(M) - \\alpha\\,\\mathrm{trace}(M)^2 "} />

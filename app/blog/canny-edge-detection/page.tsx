@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { BlogCodeLink } from "../../blog-code-link";
 import { BlogImageLightbox } from "../../blog-image-lightbox";
 import { BlogLearnMore } from "../../blog-learn-more";
 import { BlogViewCount } from "../../blog-view-count";
@@ -26,18 +27,7 @@ export default function HarrisCornerDetectionPage() {
             <span className="blogPostDate">Mar 17, 2026</span>
             <span className="blogPostDateHover">Last updated: Mar 23, 2026</span>
           </span>
-          <a
-            href="https://github.com/aryanj112/computer-vision/blob/main/notebooks/canny-edge-detection.ipynb"
-            className="blogCodeLink"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="View code for this post"
-          >
-            <span className="blogCodeLinkIcon" aria-hidden="true">
-              {"</>"}
-            </span>
-            <span>Code</span>
-          </a>
+          <BlogCodeLink href="https://github.com/aryanj112/computer-vision/blob/main/notebooks/canny-edge-detection.ipynb" />
           <BlogViewCount slug="canny-edge-detection" />
         </div>
         <p>

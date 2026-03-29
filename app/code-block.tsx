@@ -6,7 +6,7 @@ export async function CodeBlock({
   language,
 }: {
   code: string;
-  language?: "bash" | "python" | "tsx" | "typescript" | "javascript";
+  language?: "bash" | "c" | "python" | "tsx" | "typescript" | "javascript";
 }) {
   const resolvedLanguage = language ?? "python";
   const html = await codeToHtml(code, {

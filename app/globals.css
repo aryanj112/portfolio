@@ -340,6 +340,10 @@ iframe {
   max-width: 100%;
 }
 
+.blogStrongHeading {
+  margin: 1em 0;
+}
+
 .blogPostShell p .katex,
 .blogPostShell li .katex,
 .blogPostShell i .katex {
@@ -899,6 +903,21 @@ iframe {
   border-radius: 20px;
   background: rgba(255, 251, 244, 0.82);
   display: block;
+}
+
+.blogTenorEmbed {
+  width: min(100%, 18rem);
+  margin: 20px auto 0;
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 251, 244, 0.82);
+}
+
+.blogTenorEmbed iframe {
+  display: block;
+  width: 100%;
+  border-radius: 20px;
 }
 
 .blogAngleTable {

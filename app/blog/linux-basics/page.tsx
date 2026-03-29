@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BlogInlineRevealTerm } from "../../blog-inline-reveal-term";
+import { PStrong } from "../../blog-strong-heading";
 import { BlogViewCount } from "../../blog-view-count";
 import { CodeBlock } from "../../code-block";
 import { CodeOutputBlock } from "../../code-output-block";
@@ -37,7 +38,7 @@ echo "HEY GUYS WELCOME TO MY FIRST LINUX BLOG"
           Without further ado, let&apos;s get started!
         </p>
 
-        <p><strong>History:</strong></p>
+        <PStrong>History:</PStrong>
         <p>
           In 1969 Ken Thompson and Dennis Ritchie made something called the
           <BlogInlineRevealTerm term="UNIX" reveal="UNiplexed Information and Computing System" />
@@ -48,7 +49,7 @@ echo "HEY GUYS WELCOME TO MY FIRST LINUX BLOG"
           Which now begs the question: what is the kernel?
         </p>
 
-        <p><strong>What is the Kernel?</strong></p>
+        <PStrong>What is the Kernel?</PStrong>
         <p>The kernel can control:</p>
         <ul>
           <li>CPU</li>
@@ -95,7 +96,7 @@ echo "HEY GUYS WELCOME TO MY FIRST LINUX BLOG"
           <li>MANY MORE</li>
         </ul>
 
-        <p><strong>The Shell</strong></p>
+        <PStrong>The Shell</PStrong>
         <p>
           The shell is how we can type commands and have them executed on the operating system. Think of a command as no
           different than one you would give to your sibling or friend. If you ask your sister to give you a glass of water
@@ -109,16 +110,18 @@ echo "HEY GUYS WELCOME TO MY FIRST LINUX BLOG"
           with a $ which indicates that the shell is ready to accept commands.
         </p>
 
-        <p><strong>echo</strong> - this command just prints out whatever you input after</p>
+        <PStrong>echo</PStrong>
+        <p>this command just prints out whatever you input after</p>
         <CodeOutputBlock
           language="bash"
           code={`echo "Hello World!"`}
           output={`Hello World!`}
         />
 
-        <p><strong>
-          <BlogInlineRevealTerm term="pwd" reveal="print working directory" />
-        </strong> - this command just prints out the current working directory</p>
+        <PStrong>
+          <BlogInlineRevealTerm term="pwd" reveal="print working directory" pad={false} />
+        </PStrong>
+        <p>this command just prints out the current working directory</p>
         <CodeOutputBlock
           language="bash"
           code={`pwd`}
@@ -126,9 +129,10 @@ echo "HEY GUYS WELCOME TO MY FIRST LINUX BLOG"
         />
         <i>This is an example from my terminal, but this will just print wherever you are.</i>
 
-        <p><strong>
-          <BlogInlineRevealTerm term="cd" reveal="change directory" />
-          - this command is used to change the directory you are in</strong></p>
+        <PStrong>
+          <BlogInlineRevealTerm term="cd" reveal="change directory" pad={false} />
+        </PStrong>
+        <p>this command is used to change the directory you are in</p>
         <ul>
           <li>
             cd . (current directory)
@@ -221,18 +225,21 @@ echo "using the >> appends to the file instead of deleting it" >> cat.txt`}
         />
         <i>The first command is fed into the less command. BOOM.</i>
 
-        <p>
-          <strong><BlogInlineRevealTerm term="grep" reveal="Global Regular Expression (if you take upper level CS classes 
-          at a university or if you know about regular expressions this term makes a lot of sense)" /></strong> - this is used to
-          match a pattern in a file or find text in files.
-        </p>
+        <PStrong>
+          <BlogInlineRevealTerm
+            term="grep"
+            reveal="Global Regular Expression (if you take upper level CS classes at a university or if you know about regular expressions this term makes a lot of sense)"
+            pad={false}
+          />
+        </PStrong>
+        <p>this is used to match a pattern in a file or find text in files.</p>
 
         <CodeBlock
           language="bash"
           code={`grep fox sample.txt`}
         />
 
-        <p><strong>FINAL REMARKS</strong></p>
+        <PStrong>FINAL REMARKS</PStrong>
         <p>
           I used this blog mainly as a notes tab for myself so while I hope it was useful I do recognize that this isn&apos;t the best way
           to learn Linux. I think that you should

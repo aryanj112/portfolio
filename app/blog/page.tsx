@@ -42,8 +42,8 @@ export default function BlogPage() {
           <Link href="/blog/linux-processes" className="blogCard blogCardLink">
             <h3>Linux Processes</h3>
             <p>
-              Mar 25, 2026
-              <span className="blogCardUpdate">Last updated: Mar 25, 2026</span>
+              Mar 29, 2026
+              <span className="blogCardUpdate">Last updated: Mar 29, 2026</span>
             </p>
           </Link>
         </div>
