@@ -863,6 +863,110 @@ iframe {
   border-color: rgba(121, 104, 67, 0.28);
 }
 
+.lkLineDemo {
+  margin-top: 22px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  border: 1px solid rgba(121, 104, 67, 0.16);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at top left, rgba(198, 225, 210, 0.28), transparent 34%),
+    linear-gradient(180deg, rgba(255, 251, 244, 0.98), rgba(247, 240, 228, 0.96));
+  box-shadow: 0 16px 28px rgba(79, 64, 45, 0.08);
+  max-width: 34rem;
+}
+
+.lkLineDemoTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem 0.8rem;
+}
+
+.lkLineDemoGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(13rem, 0.9fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.lkLineDemoEquation .katex-display {
+  margin: 0 0 4px;
+}
+
+.lkLineDemoPanel {
+  border-radius: 14px;
+  background: rgba(252, 248, 241, 0.8);
+  overflow: hidden;
+}
+
+.lkLineDemoSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.lkLineDraggablePoint {
+  cursor: grab;
+}
+
+.lkLineDraggablePoint:active {
+  cursor: grabbing;
+}
+
+.lkLineAxisLabel {
+  fill: #4a3b2b;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.lkLineTickLabel {
+  fill: #7b6a58;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.lkLineDemoHint {
+  margin: 0;
+  padding: 0 9px 9px;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.lkLineDemoHover {
+  margin: 0;
+  padding: 0 2px 4px;
+  font-size: 0.76rem;
+  color: var(--soft);
+  white-space: nowrap;
+}
+
+.lkLineDemoControls {
+  margin-top: 0;
+  display: grid;
+  gap: 7px;
+  align-content: start;
+  padding: 8px 2px 0;
+}
+
+.lkLineDemoSlider {
+  display: grid;
+  gap: 4px;
+}
+
+.lkLineDemoSlider span {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.lkLineDemoSlider input {
+  width: 100%;
+}
+
 .harrisSurfaceSlider {
   display: grid;
   gap: 4px;
@@ -1245,28 +1349,37 @@ iframe {
   font-weight: 700;
   cursor: help;
   outline: none;
+  isolation: isolate;
 }
 
 .blogInlineRevealText {
   position: absolute;
   left: 50%;
-  bottom: calc(100% + 0.5rem);
-  transform: translate(-50%, 0.35rem);
-  min-width: max-content;
-  max-width: min(22rem, calc(100vw - 3rem));
-  padding: 0.55rem 0.7rem;
+  top: calc(100% + 0.55rem);
+  transform: translate(-50%, -0.25rem) scale(0.98);
+  width: max-content;
+  min-width: min(12rem, calc(100vw - 3rem));
+  max-width: min(24rem, calc(100vw - 2.5rem));
+  padding: 0.75rem 0.95rem;
   border: 1px solid rgba(121, 104, 67, 0.2);
-  border-radius: 12px;
+  border-radius: 20px;
   background: linear-gradient(180deg, rgba(255, 251, 244, 0.99), rgba(247, 240, 228, 0.98));
   box-shadow: 0 12px 28px rgba(79, 64, 45, 0.14);
   white-space: normal;
+  overflow-wrap: anywhere;
   opacity: 0;
   pointer-events: none;
   color: var(--muted);
   font-weight: 400;
   line-height: 1.4;
-  z-index: 20;
+  z-index: 9999;
   transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.blogInlineRevealTermAbove .blogInlineRevealText {
+  top: auto;
+  bottom: calc(100% + 0.55rem);
+  transform: translate(-50%, 0.25rem) scale(0.98);
 }
 
 .blogInlineRevealTerm::after,
@@ -1278,7 +1391,7 @@ iframe {
 .blogInlineRevealTerm:hover .blogInlineRevealText,
 .blogInlineRevealTerm:focus-visible .blogInlineRevealText {
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, 0) scale(1);
 }
 
 .blogImageButton {

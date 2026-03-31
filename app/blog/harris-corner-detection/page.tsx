@@ -136,6 +136,7 @@ export default function HarrisCornersPage() {
           .
         </p>
 
+        <div id="taylor-expansion">
         <p>
           We saw in the last blog post that finding the derivatives of the intensity in the x and y direction were very easy. With
           this tool in our bag we can now look at approximating this term with a Taylor expansion: I(x+u, y+v). If you don't know what
@@ -145,6 +146,7 @@ export default function HarrisCornersPage() {
           in u and v using a Taylor expansion. <strong>With that said we can approximate </strong>
           <InlineMath math={"I(x+u, y+v) \\approx I(x,y) + uI_x(x,y) + vI_y(x,y)"} />
         </p>
+        </div>
 
         <video className="blogInlineVideo" controls>
           <source src="/blog/harris-corner-detection/autocorrelation.mp4" type="video/mp4" />
@@ -312,6 +314,13 @@ key_pts = np.column_stack((x_vals,y_vals))`}
           width={1200}
           height={900}
         />
+
+        <div className="blogReadingRow">
+          <span className="blogReadingLabel">Next reading</span>
+          <Link href="/blog/lucas-kanade-corner-tracking" className="blogReadingButton">
+            Understanding tracking: Lucas-Kanade Corner Tracking
+          </Link>
+        </div>
 
 
       </section>
