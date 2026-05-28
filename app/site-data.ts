@@ -32,7 +32,7 @@ export const profile = {
   email: "2006aryanj@gmail.com",
   linkedin: "https://www.linkedin.com/in/aryanjain06/",
   github: "https://github.com/aryanj112",
-  resume: "/Aryan_Jain_Resume_2_26_26_Pinterest.pdf",
+  resume: "/Aryan_Jain_Resume.pdf",
   major: "Computer Science",
   minors: "Robotics, Climate Change Fluency, and Remote Sensing for Environmental Change",
   school: "University of Maryland",
@@ -105,9 +105,9 @@ export const workExperiences: DetailEntry[] = [
     period: "Feb '26 - Present",
     location: "University of Maryland",
     summary:
-      "Researching the effects of wind on drones in an academic lab setting and exploring the kind of robotics and autonomy problems I want to keep pursuing long term.",
+      "Building a drone from scratch and programming it to translate natural language into movement",
     details: [],
-    tags: ["Python", "Linux", "Ubuntu", "Gazebo"],
+    tags: ["ROS", "Python", "Linux", "Ubuntu", "Gazebo", "Isaac Sim", "Jetson Nano"],
     links: [{ label: "coming soon 👀", href: "#" }],
   },
   {
@@ -115,11 +115,11 @@ export const workExperiences: DetailEntry[] = [
     title: "Pinterest",
     subtitle: "Software Engineering Intern",
     period: "Summer '26",
-    location: "Remote",
+    location: "San Francisco",
     summary:
-      "Joining Pinterest as a SWE intern on the Mobile Platforms org.",
+      "Created a pipeline to transmit thousands of BuildKite failed job logs to Kafka for enhanced developer insights",
     details: [],
-    tags: ["???"],
+    tags: ["AWS S3", "Python", "BuildKite Webhook & API", "Kafka", "Kibana", "Pinternal Tools 🙃📌"],
   },
   {
     slug: "nist-research-intern",
@@ -172,7 +172,7 @@ export const workTimeline: WorkTimelineEntry[] = [
     period: "Summer '26",
     logoSrc: "/logos/pinterest.png",
     logoAlt: "Pinterest logo",
-    summary: "Joining the Mobile Platforms org",
+    summary: "Created a pipeline to transmit thousands of BuildKite failed job logs to Kafka for enhanced developer insights",
     track: "Industry",
   },
   {
@@ -202,7 +202,7 @@ export const workTimeline: WorkTimelineEntry[] = [
     period: "Feb '26 - Present",
     logoSrc: "/logos/raas-lab.png",
     logoAlt: "RAAS Lab logo",
-    summary: "Studying the effects of wind on drones",
+    summary: "Building a drone from scratch and programming it to translate natural language into movement",
     track: "Academia",
   },
   {

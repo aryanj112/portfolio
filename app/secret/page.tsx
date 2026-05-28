@@ -22,7 +22,10 @@ export default function SecretPage() {
   return (
     <SiteShell title="Secret">
       <section className="singleCopyBlock secretContent">
-        <p>Replace this paragraph with whatever you want to say here.</p>
+        <p>
+          This is my secret page of my website with some random things that I want to document and list but don&apos;t want to have
+          front and center :)
+        </p>
       </section>
     </SiteShell>
   );
