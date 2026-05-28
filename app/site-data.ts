@@ -34,7 +34,7 @@ export const profile = {
   github: "https://github.com/aryanj112",
   resume: "/Aryan_Jain_Resume.pdf",
   major: "Computer Science",
-  minors: "Robotics, Climate Change Fluency, and Remote Sensing for Environmental Change",
+  minors: "Robotics and Climate Change Fluency",
   school: "University of Maryland",
   schoolShort: "UMD",
   schoolUrl: "https://www.cs.umd.edu/",
