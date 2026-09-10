@@ -42,7 +42,7 @@ export default function HarrisCornersPage() {
         <p>
           Hey everyone! In this blog we are going to be delving into the Harris Corner Detection algorithm. Before we dive into this
           I really recommend reading the article about Canny edge detection as some of the concepts bleed into this blog. With that said
-          let's dive into it!
+          let&apos;s dive into it!
         </p>
         <p>
           So as you can tell from the title of this post we are looking at an algorithm that can detect corners in an image. This is
@@ -96,7 +96,7 @@ export default function HarrisCornersPage() {
         <p>
           This is the basis for the <strong>auto-correlation function</strong> also known as the SSD error function.
           This function <strong>measures how much a window of pixels in an image changes when shifted by (u,v)</strong>.
-          Let's now take a look at our original three windows' auto-correlation function (notated with the character E)
+          Let&apos;s now take a look at our original three windows&apos; auto-correlation function (notated with the character E)
         </p>
 
         <BlogImageLightbox
@@ -139,10 +139,10 @@ export default function HarrisCornersPage() {
         <div id="taylor-expansion">
         <p>
           We saw in the last blog post that finding the derivatives of the intensity in the x and y direction were very easy. With
-          this tool in our bag we can now look at approximating this term with a Taylor expansion: I(x+u, y+v). If you don't know what
+          this tool in our bag we can now look at approximating this term with a Taylor expansion: I(x+u, y+v). If you don&apos;t know what
           a Taylor expansion is watch
           <PaintLink href="https://www.youtube.com/watch?v=3d6DsjIBzJ4">this video</PaintLink>
-          and if you don't have a solid understanding of calculus just know that we can approximate I(x+u, y+v) for small changes
+          and if you don&apos;t have a solid understanding of calculus just know that we can approximate I(x+u, y+v) for small changes
           in u and v using a Taylor expansion. <strong>With that said we can approximate </strong>
           <InlineMath math={"I(x+u, y+v) \\approx I(x,y) + uI_x(x,y) + vI_y(x,y)"} />
         </p>
@@ -269,7 +269,7 @@ G_Ixy = cv2.GaussianBlur(Ixy, (smooth_window_size, smooth_window_size), 0)`}
 
         <HarrisResponseTable />
 
-        <p>Let's take a look at the code!</p>
+        <p>Let&apos;s take a look at the code!</p>
         <CodeBlock
           code={`alpha = 0.04
 det = (G_Ix2 * G_Iy2) - np.square(G_Ixy)

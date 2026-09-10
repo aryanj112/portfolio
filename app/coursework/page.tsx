@@ -53,7 +53,7 @@ export default function CourseworkPage() {
               >
                 The Basement PPL (Pop Band)
               </a>
-              , Men's Volleyball, Masti Bollywood Dance
+              , Men&apos;s Volleyball, Masti Bollywood Dance
             </p>
           </div>
           <div className="courseworkGroup">

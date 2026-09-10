@@ -72,8 +72,8 @@ export default function HarrisCornerDetectionPage() {
           image but also by looking at the change in pixel intensity on the right graph.
         </p>
         <p>
-          I've been saying "change in intensity" a lot, hoping it would trigger the <strong> calculus side </strong> of your brain to start thinking about derivatives
-          (if you don't know what derivatives are, watch
+          I&apos;ve been saying &quot;change in intensity&quot; a lot, hoping it would trigger the <strong> calculus side </strong> of your brain to start thinking about derivatives
+          (if you don&apos;t know what derivatives are, watch
           <PaintLink href="https://www.youtube.com/watch?v=9vKqVkMQHKk">this video</PaintLink>
           or check out this
           <PaintLink href="/blog">blog post abt calc incoming 👀</PaintLink>
@@ -95,7 +95,7 @@ export default function HarrisCornerDetectionPage() {
         </i>
 
         <p>
-          Now, most images aren't perfect and some tend to be on the grainier/noisier side. Here is what happens to our gradient
+          Now, most images aren&apos;t perfect and some tend to be on the grainier/noisier side. Here is what happens to our gradient
           after we add a little bit of gaussian noise.
         </p>
         <BlogImageLightbox
@@ -130,7 +130,7 @@ export default function HarrisCornerDetectionPage() {
 
         <p>
           The <strong>(DoG)</strong> is the first of 3 steps in the Canny Edge detection algorithm. After applying this filter we get back ∂I/∂x and ∂I/∂y (I is intensity so we are
-          taking the partial derivative of intensity w.r.t the x direction as well as the y). Also, you may hear "Sobel filter" a lot when looking into the Canny edge detector and that is another
+          taking the partial derivative of intensity w.r.t the x direction as well as the y). Also, you may hear &quot;Sobel filter&quot; a lot when looking into the Canny edge detector and that is another
           filter used to compute gradients, we did not use that here.
         </p>
 
@@ -190,7 +190,7 @@ grad_mag = np.sqrt(np.square(Ix) + np.square(Iy))`} language="python" />
         </p>
 
         <p>
-          Let's dive into what I mean by gradient direction. So recall that an x gradient is measuring a vertical edge. If we go along the
+          Let&apos;s dive into what I mean by gradient direction. So recall that an x gradient is measuring a vertical edge. If we go along the
           x gradient in a particular pixel patch and we keep only the maxima in a local region that means that we <strong>thinning out or shaving </strong>
           a vertical edge. I really want that to stick with you and why we are <strong>thinning out and shaving </strong> as opposed to erasing an edge.
         </p>
@@ -208,8 +208,8 @@ grad_mag = np.sqrt(np.square(Ix) + np.square(Iy))`} language="python" />
 
         <p>
           Now the big question is how do we figure out what orientation a certain pixel edge is representing? To understand how to
-          solve this problem let's take a look at the two gradients of a sample pixel. If we combine the two gradients into a vector
-          we now have a vector that represents the change in x and y of a pixel's intensity. If we take this vector and plot it we can see
+          solve this problem let&apos;s take a look at the two gradients of a sample pixel. If we combine the two gradients into a vector
+          we now have a vector that represents the change in x and y of a pixel&apos;s intensity. If we take this vector and plot it we can see
           the direction and magnitude of the edge. So the next question is how do we separate this into the direction. Watch the video below
           and you can see just how to do that (you will need a basic understanding of linear algebra and trigonometry).
         </p>
@@ -226,7 +226,7 @@ grad_mag = np.sqrt(np.square(Ix) + np.square(Iy))`} language="python" />
         </p>
 
         <p>
-          In practice, we usually don't keep every exact angle. Instead, we <strong>quantize</strong> the gradient
+          In practice, we usually don&apos;t keep every exact angle. Instead, we <strong>quantize</strong> the gradient
           direction into a few main buckets so non-maximum suppression knows which neighboring pixels to compare
           against. For Canny, this is usually done with 4 directions: 0°, 45°, 90°, and 135°.
         </p>
@@ -381,7 +381,7 @@ for y in range(1, H - 1):
 
         <p>
           THATS IT!!! The results are below. Also the hysteresis thresholding values can be changed and I encourage you to mess
-          around with. Oh also another note, this isn't real hysteresis thresholding because in the real one they use a BFS or DFS
+          around with. Oh also another note, this isn&apos;t real hysteresis thresholding because in the real one they use a BFS or DFS
           to see if a weak is connected to a strong (
           <PaintLink href="https://www.youtube.com/watch?v=cS-198wtfj0&t=384s">
             BFS/DFS vid if you are unfamiliar

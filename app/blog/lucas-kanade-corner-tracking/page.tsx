@@ -105,7 +105,7 @@ export default function LucasKanadeCornerTrackingPage() {
             Small motion - the next thing we will assume to track features using the algorithm is that the motion (u, v) is small.
             If we assume the motion is small we can now change that equation above using a Taylor expansion. Why can we do that?
             Well given a small enough change we can use the derivative of pixel intensity (I) at (x, y) to take the (u, v) values
-            out of the intensity function. We do that since we don't actually know what the (u, v) values are so we can now solve for
+            out of the intensity function. We do that since we don&apos;t actually know what the (u, v) values are so we can now solve for
             them with this new equation. If you need a refresher on Taylor expansion, check out
             <PaintLink href="/blog/harris-corner-detection#taylor-expansion">the Harris corner detection blog</PaintLink>.
             <BlogMathPopup
@@ -129,14 +129,14 @@ export default function LucasKanadeCornerTrackingPage() {
 
             <LucasKanadeLineDemo />
 
-            As shown by this diagram, many (u, v) values can work for this equation and now the issue is we don't know which one is
+            As shown by this diagram, many (u, v) values can work for this equation and now the issue is we don&apos;t know which one is
             correct. How can we solve this? The reason we have this issue is because we have one equation and two unknowns. If you
             have taken linear algebra then the obvious answer is to get more equations and now we can solve a system of linear equations.
             The last assumption is how we solve this problem.
           </li>
           <br />
           <li>
-            Spacial Coherence - This is the idea that pixels that are near each other tend to move together. If you think about it
+            Spatial Coherence - This is the idea that pixels that are near each other tend to move together. If you think about it
             this makes a lot of sense. If you are tracking the corner of your iPhone, chances are if you move your phone the camera moves
             along with it.
 
@@ -243,8 +243,8 @@ A^TA =
             />
 
             <p>
-              Whats cool here is that this matrix needs to be invertible for this to work. And a matrix of all zeros
-              is not invertible. Tracking a flat region is not even possible with this formula and it's cool that it's
+              What&apos;s cool here is that this matrix needs to be invertible for this to work. And a matrix of all zeros
+              is not invertible. Tracking a flat region is not even possible with this formula and it&apos;s cool that it&apos;s
               baked into the algorithm.
             </p>
           </li>
@@ -253,10 +253,10 @@ A^TA =
         <p>Steps to the iterative algorithm</p>
         <ol>
           <li>
-            Set (x', y') = (x, y) (this never runs again after the first iteration)
+            Set (x&apos;, y&apos;) = (x, y) (this never runs again after the first iteration)
           </li>
           <li>
-            Update (x', y') = (x' + u, y' + v)
+            Update (x&apos;, y&apos;) = (x&apos; + u, y&apos; + v)
           </li>
           <li>
             Compute <InlineMath math={"I_t"} />, which is the difference in intensity due to the time change. So basically just{" "}
@@ -269,7 +269,7 @@ A^TA =
         </ol>
 
         <p>
-          I unfortunatly did not have time to get fully into the coding but hopefully it will come out soon if I find time!
+          I unfortunately did not have time to get fully into the coding but hopefully it will come out soon if I find time!
         </p>
 
 
