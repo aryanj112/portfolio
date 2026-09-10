@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import { BlogInlineRevealTerm } from "../../blog-inline-reveal-term";
+import { BlogImageLightbox } from "../../blog-image-lightbox";
 import { BlogViewCount } from "../../blog-view-count";
-import { CodeBlock } from "../../code-block";
 import { SiteShell } from "../../components";
-import { PStrong } from "../../blog-strong-heading";
+import { PaintLink } from "../../paint-link";
+
+const paperTitle = "Attention Is All You Need";
+const nextTokenExample = "I just dropped my mechanical pencil I can't believe my lead ___";
 
 export const metadata: Metadata = {
-  title: 'Breaking down "Attention Is All You Need" and the Transformer',
+  title: `Breaking down "${paperTitle}" and the Transformer`,
 };
 
 export default function AttentionIsAllYouNeedPage() {
@@ -14,7 +16,7 @@ export default function AttentionIsAllYouNeedPage() {
     <SiteShell>
       <section className="blogPostShell">
         <h1>
-          Breaking down &quot;Attention Is All You Need&quot;
+          Breaking down {`"${paperTitle}"`}
           <br />
           and the Transformer
         </h1>
@@ -28,129 +30,50 @@ export default function AttentionIsAllYouNeedPage() {
         </div>
 
         <p>
-          The transformer is one of those ideas that sounds more mysterious than it actually is. The paper title,{" "}
-          <strong>&quot;Attention Is All You Need&quot;</strong>, is basically the whole thesis: instead of reading a sentence one token at a
-          time, let every token look at every other token and decide what matters.
+          The transformer is a model architecture that essentially created the entire AI boom we are seeing now. Despite countless
+          innovations in the field and model, all of it dates back to August 2nd 2023 in the heart of {"Google's"} DeepMind Lab.
         </p>
 
         <p>
-          That sounds simple, but it is a pretty wild shift. Before transformers, a lot of language models leaned on
-          <BlogInlineRevealTerm term="RNNs" reveal="recurrent neural networks" /> or
-          <BlogInlineRevealTerm term="LSTMs" reveal="long short-term memory networks" />. Those models process text in order, which is intuitive, but
-          it also means they are kind of stuck walking through the sentence step by step. Transformers make the sequence feel more like a
-          table where all the words can talk to each other at once.
-        </p>
-
-        <PStrong>The core intuition</PStrong>
-
-        <p>
-          Imagine the sentence: <strong>&quot;The robot picked up the box because it was heavy.&quot;</strong> What does <strong>&quot;it&quot;</strong>
-          refer to? Probably the box. A model needs a way to connect <strong>&quot;it&quot;</strong> back to the useful earlier word. Attention is
-          the mechanism that lets a token ask: <strong>which other tokens should I care about right now?</strong>
+          <PaintLink href="https://arxiv.org/abs/1706.03762" pad={false}>
+            {paperTitle}
+          </PaintLink>
         </p>
 
         <p>
-          In a transformer, each token gets turned into three vectors:
-        </p>
-
-        <ul>
-          <li><strong>Query:</strong> what this token is looking for</li>
-          <li><strong>Key:</strong> what this token offers as a label</li>
-          <li><strong>Value:</strong> the information this token can pass along</li>
-        </ul>
-
-        <p>
-          The query compares itself against all the keys. Strong matches get higher weights. Then the model mixes together the values
-          using those weights. That weighted mixture becomes the token&apos;s new context-aware representation.
-        </p>
-
-        <CodeBlock
-          language="python"
-          code={`# Scaled dot-product attention
-scores = Q @ K.T / sqrt(d_k)
-weights = softmax(scores)
-output = weights @ V`}
-        />
-
-        <PStrong>Why the scaling?</PStrong>
-
-        <p>
-          The <code>/ sqrt(d_k)</code> part looks random at first, but it keeps the dot products from getting too large as the vectors get
-          wider. If the scores get huge, the softmax turns into something very close to a one-hot choice, gradients get less useful, and
-          training becomes annoying. Scaling keeps the attention distribution smoother.
-        </p>
-
-        <PStrong>Multi-head attention</PStrong>
-
-        <p>
-          One attention operation can learn one kind of relationship, but language has lots of relationships happening at the same time.
-          A word might care about its subject, its verb, nearby punctuation, or a phrase from way earlier in the sentence. Multi-head
-          attention just runs attention several times in parallel with different learned projections.
+          The way a transformer works is by predicting the next token. So for a simple example, imagine you have the sentence{" "}
+          {`"${nextTokenExample}"`}
         </p>
 
         <p>
-          I like thinking of each head as a different lens. One head might become good at local grammar, another might track references,
-          and another might capture long-range dependencies. The model does not get told to do that explicitly; it discovers useful
-          patterns because they help reduce the training loss.
-        </p>
-
-        <CodeBlock
-          language="python"
-          code={`head_1 = attention(Q1, K1, V1)
-head_2 = attention(Q2, K2, V2)
-head_3 = attention(Q3, K3, V3)
-
-combined = linear(concat([head_1, head_2, head_3]))`}
-        />
-
-        <PStrong>But order still matters</PStrong>
-
-        <p>
-          There is one funny problem: attention by itself does not know word order. If every token can look at every other token, the model
-          needs some extra signal that says token 3 came before token 4. That is what positional encoding is for.
+          The fill in the blank here is obviously {`"broke."`} and we can think of that as a token that the model is going to predict.
         </p>
 
         <p>
-          The original transformer paper used sine and cosine waves at different frequencies. The exact math is less important than the
-          purpose: add a position-specific pattern to each token embedding so the model can reason about order and distance.
+          With this slight introduction I want to spend the rest of this blog breaking down the self-attention mechanism and the encoder and decoder
+          design. I assume basic familiarity with ChatGPT and the general idea of what a transformer is but not the math and exact implementation
+          we will go into. For more preliminary information there are resources at the bottom.
         </p>
 
-        <PStrong>The encoder-decoder shape</PStrong>
+        <div style={{ maxWidth: 440, margin: "0 auto" }}>
+          <BlogImageLightbox
+            src="/blog/breaking-down-attention-is-all-you-need-and-the-transformer/transformer-architecture.webp"
+            alt="Transformer architecture diagram"
+            width={1320}
+            height={1860}
+          />
+          <i>This is the transformer architecture</i>
+        </div>
 
         <p>
-          The original transformer was built for translation, so it had two big halves:
-        </p>
-
-        <ul>
-          <li><strong>Encoder:</strong> reads the input sentence and builds rich contextual representations</li>
-          <li><strong>Decoder:</strong> generates the output sentence one token at a time while looking back at the encoder</li>
-        </ul>
-
-        <p>
-          Each encoder block has self-attention followed by a feed-forward network. Each decoder block has masked self-attention, cross-attention
-          over the encoder output, and then a feed-forward network. The masking part matters because, during generation, the model should not
-          peek at future tokens.
-        </p>
-
-        <PStrong>Why this paper changed everything</PStrong>
-
-        <p>
-          The transformer was not just more accurate; it was easier to scale. Since tokens can be processed in parallel during training, the
-          architecture plays really nicely with GPUs. That parallelism is a big reason transformer-based models kept getting larger and better.
-        </p>
-
-        <p>
-          The bigger idea is that attention gives the model a flexible routing system. Instead of forcing information to squeeze through a
-          left-to-right hidden state, the model can directly connect relevant pieces of context. That one design choice is the seed for a ton
-          of modern AI: translation models, BERT-style encoders, GPT-style decoders, vision transformers, multimodal models, and more.
-        </p>
-
-        <PStrong>The short version</PStrong>
-
-        <p>
-          A transformer turns tokens into vectors, lets them attend to each other, adds position information, passes the result through
-          feed-forward layers, and stacks that process many times. The magic is not one mysterious equation. It is the combination of
-          <strong> parallelism</strong>, <strong>context mixing</strong>, and <strong>scale</strong>.
+          So before the transformer and self-attention we had a very sequential based approach (RNN, LSTM, etc). In this approach we would take each
+          token (think of a token as a word in a sentence), feed it through a model, store some data in memory, and then keep doing that with every next token.
+          Now this works and was a solid approach to this problem, however it wasn&apos;t scalable and was unable to handle large context windows. Imagine a 10 page essay.
+          Training would all be sequential so it would take forever to train the model and also with this kind of an approach by the time you go to the end of the essay the model
+          would have no clue what happened in the very start. As you might have seen the scale of LLM&apos;s has gone up an absurd amount in the past few years. What we are finding is that
+          scale eventually trumps everything, even in adjacent fields such as robotics. This means that we needed a parallelizable approach. Luckily the attention mechanism was not only parallelizable
+          but also tacked on the benefit of handling large context windows by relating every token to each other (I will explain this part more). Now with all of this said, this blog will hone in on that
+          attention mechanism and how it works under the hood.
         </p>
       </section>
     </SiteShell>
