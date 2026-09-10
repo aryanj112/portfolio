@@ -36,6 +36,20 @@ export default function BlogPage() {
       </section>
 
       <section className="storySection blogLandingSection">
+        <h2 className="sectionSubhead">AI / ML</h2>
+        <div className="rule" aria-hidden="true" />
+        <div className="blogCardGrid">
+          <Link href="/blog/breaking-down-attention-is-all-you-need-and-the-transformer" className="blogCard blogCardLink">
+            <h3>Breaking down &quot;Attention Is All You Need&quot; and the Transformer</h3>
+            <p>
+              Sep 10, 2026
+              <span className="blogCardUpdate">Last updated: Sep 10, 2026</span>
+            </p>
+          </Link>
+        </div>
+      </section>
+
+      <section className="storySection blogLandingSection">
         <h2 className="sectionSubhead">Linux</h2>
         <div className="rule" aria-hidden="true" />
         <div className="blogCardGrid">
