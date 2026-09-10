@@ -36,7 +36,7 @@ export default function BlogPage() {
       </section>
 
       <section className="storySection blogLandingSection">
-        <h2 className="sectionSubhead">AI / ML</h2>
+        <h2 className="sectionSubhead">Robotics</h2>
         <div className="rule" aria-hidden="true" />
         <div className="blogCardGrid">
           <Link href="/blog/breaking-down-attention-is-all-you-need-and-the-transformer" className="blogCard blogCardLink">
