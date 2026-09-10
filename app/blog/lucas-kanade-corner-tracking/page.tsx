@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BlogCodeLink } from "../../blog-code-link";
 import { BlogMathPopup } from "../../blog-math-popup";
 import { BlogViewCount } from "../../blog-view-count";
 import { SiteShell } from "../../components";
 import { BlogImageLightbox } from "../../blog-image-lightbox";
 import { PaintLink } from "../../paint-link";
-import { BlockMath } from "react-katex";
+import { BlockMath, InlineMath } from "react-katex";
 import { LucasKanadeLineDemo } from "../../lucas-kanade-line-demo";
 import { BlogInlineRevealTerm } from "../../blog-inline-reveal-term";
 
@@ -21,9 +22,10 @@ export default function LucasKanadeCornerTrackingPage() {
         <div className="blogPostMetaRow">
           <p className="blogByline">By: Aryan Jain</p>
           <span className="blogPostDateReveal" tabIndex={0}>
-            <span className="blogPostDate">Coming soon 👀</span>
-            <span className="blogPostDateHover">Last updated: 👀</span>
+            <span className="blogPostDate">Jun 14, 2026</span>
+            <span className="blogPostDateHover">Last updated: Jun 14, 2026</span>
           </span>
+          <BlogCodeLink href="https://github.com/aryanj112/computer-vision/blob/main/notebooks/lucas-kanade-feature-tracking.ipynb" />
           <BlogViewCount slug="lucas-kanade-corner-tracking" />
         </div>
         <div className="blogReadingRow">
@@ -129,7 +131,7 @@ export default function LucasKanadeCornerTrackingPage() {
 
             As shown by this diagram, many (u, v) values can work for this equation and now the issue is we don't know which one is
             correct. How can we solve this? The reason we have this issue is because we have one equation and two unknowns. If you
-            have taken linear algebra tha obvious answer is to get more equations and now we can solve a system of linear equations.
+            have taken linear algebra then the obvious answer is to get more equations and now we can solve a system of linear equations.
             The last assumption is how we solve this problem.
           </li>
           <br />
@@ -160,7 +162,7 @@ export default function LucasKanadeCornerTrackingPage() {
 \begin{aligned}
 uI_x^{(1)} + vI_y^{(1)} &= -I_t^{(1)} \\
 uI_x^{(2)} + vI_y^{(2)} &= -I_t^{(2)} \\
-\vdots \\
+&\raisebox{0.15em}{\(\substack{\cdot\\[-0.15em]\cdot\\[-0.15em]\cdot}\)} \\
 uI_x^{(N)} + vI_y^{(N)} &= -I_t^{(N)}
 \end{aligned}
 `}
@@ -183,7 +185,8 @@ uI_x^{(N)} + vI_y^{(N)} &= -I_t^{(N)}
 \begin{array}{cc}
 I_x^{(1)} & I_y^{(1)} \\
 I_x^{(2)} & I_y^{(2)} \\
-\multicolumn{2}{c}{\vdots} \\
+\raisebox{0.15em}{\(\substack{\cdot\\[-0.15em]\cdot\\[-0.15em]\cdot}\)}
+& \raisebox{0.15em}{\(\substack{\cdot\\[-0.15em]\cdot\\[-0.15em]\cdot}\)} \\
 I_x^{(N)} & I_y^{(N)}
 \end{array}
 \right]
@@ -199,16 +202,75 @@ v
 \begin{array}{c}
 I_t^{(1)} \\
 I_t^{(2)} \\
-\vdots \\
+\raisebox{0.15em}{\(\substack{\cdot\\[-0.15em]\cdot\\[-0.15em]\cdot}\)} \\
 I_t^{(N)}
 \end{array}
 \right]
 `}
             />
             <BlockMath math={"Ad = b"} />
+
+            <p>
+              Ok now we can look back at our original objective which was to find u and v and now it becomes clear
+              that we need to isolate d. This can be done by multiplying the transpose of A on both sides and then inverting that
+              to isolate d. Below is the math for that!
+            </p>
+
+            <BlockMath
+              math={String.raw`
+\begin{aligned}
+Ad &= b \\
+A^TAd &= A^Tb \\
+(A^TA)^{-1}A^TAd &= (A^TA)^{-1}A^Tb \\
+d &= (A^TA)^{-1}A^Tb
+\end{aligned}
+`}
+            />
+            <p>
+              Ok so this is actually pretty interesting. If we look at it, <InlineMath math={"A^TA"} /> is this matrix which is what
+              we used in the <PaintLink href="/blog/harris-corner-detection">corner tracking blog</PaintLink> to determine if a pixel
+              was a flat region, edge, or corner.
+            </p>
+
+            <BlockMath
+              math={String.raw`
+A^TA =
+\begin{bmatrix}
+\sum_{x,y} I_x^2 & \sum_{x,y} I_x I_y \\
+\sum_{x,y} I_x I_y & \sum_{x,y} I_y^2
+\end{bmatrix}
+`}
+            />
+
+            <p>
+              Whats cool here is that this matrix needs to be invertible for this to work. And a matrix of all zeros
+              is not invertible. Tracking a flat region is not even possible with this formula and it's cool that it's
+              baked into the algorithm.
+            </p>
           </li>
         </ol>
 
+        <p>Steps to the iterative algorithm</p>
+        <ol>
+          <li>
+            Set (x', y') = (x, y) (this never runs again after the first iteration)
+          </li>
+          <li>
+            Update (x', y') = (x' + u, y' + v)
+          </li>
+          <li>
+            Compute <InlineMath math={"I_t"} />, which is the difference in intensity due to the time change. So basically just{" "}
+            <InlineMath math={"I(x', y', t+1) - I(x, y, t)"} />
+          </li>
+          <li>
+            Go back to step 2 and repeat until the motion update is sufficiently small:{" "}
+            <InlineMath math={"\\sqrt{u^2 + v^2} < \\epsilon"} />
+          </li>
+        </ol>
+
+        <p>
+          I unfortunatly did not have time to get fully into the coding but hopefully it will come out soon if I find time!
+        </p>
 
 
       </section>

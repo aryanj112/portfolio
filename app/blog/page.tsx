@@ -28,8 +28,8 @@ export default function BlogPage() {
           <Link href="/blog/lucas-kanade-corner-tracking" className="blogCard blogCardLink">
             <h3>Understanding tracking: Lucas-Kanade Corner Tracking</h3>
             <p>
-              Coming soon 👀
-              <span className="blogCardUpdate">Last updated: 👀</span>
+              Jun 14, 2026
+              <span className="blogCardUpdate">Last updated: Jun 14, 2026</span>
             </p>
           </Link>
         </div>
