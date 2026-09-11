@@ -1,11 +1,20 @@
 import type { Metadata } from "next";
+import { InlineMath } from "react-katex";
 import { BlogImageLightbox } from "../../blog-image-lightbox";
 import { BlogViewCount } from "../../blog-view-count";
 import { SiteShell } from "../../components";
 import { PaintLink } from "../../paint-link";
+import { TokenAttentionTable } from "../../token-attention-table";
+import { WordVectorGraph } from "../../word-vector-graph";
 
 const paperTitle = "Attention Is All You Need";
 const nextTokenExample = "I just dropped my mechanical pencil I can't believe my lead ___";
+const simpleTokens = nextTokenExample.split(" ");
+const exampleTokenVectors = [
+  { token: "I", vector: String.raw`\begin{bmatrix}0\\0\\1\\0\\[-0.2em]\cdot\\[-0.2em]\cdot\\[-0.2em]\cdot\\0\end{bmatrix}` },
+  { token: "dropped", vector: String.raw`\begin{bmatrix}0\\0\\0\\0\\[-0.2em]\cdot\\[-0.2em]\cdot\\[-0.2em]\cdot\\1\end{bmatrix}` },
+  { token: "lead", vector: String.raw`\begin{bmatrix}0\\1\\0\\0\\[-0.2em]\cdot\\[-0.2em]\cdot\\[-0.2em]\cdot\\0\end{bmatrix}` },
+];
 
 export const metadata: Metadata = {
   title: `Breaking down "${paperTitle}" and the Transformer`,
@@ -75,6 +84,112 @@ export default function AttentionIsAllYouNeedPage() {
           but also tacked on the benefit of handling large context windows by relating every token to each other (I will explain this part more). Now with all of this said, this blog will hone in on that
           attention mechanism and how it works under the hood.
         </p>
+
+        <p>
+          Take the input example we had from before:{" "}
+          {`"${nextTokenExample}"`}. The first step is to tokenize this (
+          <PaintLink href="https://platform.openai.com/tokenizer" pad={false}>
+            try an actual tokenizer
+          </PaintLink>
+          ).
+        </p>
+
+        <div
+          aria-label="Simple word-level tokenization of the example sentence"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "10px",
+            justifyContent: "center",
+            margin: "20px 0 28px",
+          }}
+        >
+          {simpleTokens.map((token, index) => (
+            <span
+              key={`${token}-${index}`}
+              style={{
+                border: "1px solid var(--rule)",
+                borderRadius: "6px",
+                background: "rgba(255, 251, 244, 0.82)",
+                boxShadow: "0 8px 20px rgba(45, 37, 27, 0.08)",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minWidth: "54px",
+                padding: "8px 12px",
+                fontWeight: 700,
+              }}
+            >
+              {token}
+            </span>
+          ))}
+        </div>
+
+        <p>
+          The model can now take each of these tokens and look it up in a massive dictionary to get its vector representation.
+          As a mental model, imagine each token starting as a giant sparse vector with around <strong>50,000 possible slots</strong>.
+          Almost everything is 0, and one position lights up to say which token it is. Let&apos;s get some example vectors for our tokens.
+        </p>
+
+        <div
+          aria-label="Example token vectors"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "20px",
+            justifyContent: "center",
+            margin: "20px 0 28px",
+          }}
+        >
+          {exampleTokenVectors.map(({ token, vector }) => (
+            <div
+              key={token}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+              }}
+            >
+              <span
+                style={{
+                  border: "1px solid var(--rule)",
+                  borderRadius: "6px",
+                  background: "rgba(255, 251, 244, 0.82)",
+                  boxShadow: "0 8px 20px rgba(45, 37, 27, 0.08)",
+                  padding: "8px 12px",
+                  textAlign: "center",
+                  fontWeight: 700,
+                }}
+              >
+                {token}
+              </span>
+              <InlineMath math={vector} />
+            </div>
+          ))}
+        </div>
+
+        <p>
+          You can think of maybe the 43,403 slot to be pencil and if we have the word pencil in our sentence that slot would be 1 and everything else 0.
+          In practice this is not how we represent tokens and it is more than just 1&apos;s and 0&apos;s but it is a good start. Now another aspect I want to break down
+          is the intuition for how these vectors operate. Think of a toy 2D space where the x axis is gender-ish meaning and the y axis is occupation.
+          Then similar words land near each other, and meaningful differences become directions you can move in.
+        </p>
+
+        <WordVectorGraph />
+
+        <p>
+          Now these are again just very basic representations of a much more complex system underneath but this should get you thinking about how
+          these 50,000 dimention vectors can start to hold some value.
+        </p>
+
+        <p>
+          Once every token has a vector, attention compares every token to every other token. The table below is a toy version of that idea:
+          the same tokens go across the top and down the side, and each blob is the attention score between that pair.
+        </p>
+
+        <TokenAttentionTable />
+
+
       </section>
     </SiteShell>
   );
